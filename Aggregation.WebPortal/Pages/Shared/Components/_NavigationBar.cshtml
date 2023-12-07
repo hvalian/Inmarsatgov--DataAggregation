@@ -1,0 +1,87 @@
+﻿@{
+    @using Aggregation_Services;
+    @inject IAggregationRepository aggregationRepository;
+    @inject IUserService userService;
+}
+
+<div class="container">
+    <a class="navbar-brand text-white" asp-area="" asp-page="/Index">
+        HOME - (@aggregationRepository.GetConfigurationByKey("ProjectName").Value)
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse d-lg-inline-flex justify-content-between" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Jobs</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Jobs/Index">Action View</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Jobs/Historical/Index">Historical View</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Jobs/Queue/Index">Queue View</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-page="/Configuration/Index">Configuration</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Lookup</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/Activity/Index">Activities</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/Interval/Index">Intervals</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/JobType/Index">Job Types</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/Metrics/Index">Metrics (Node Stauts Only)</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/NodeType/Index">Node Types</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/Priority/Index">Priorities</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="" asp-page="/Lookup/Status/Index">Status</a>
+                    </li>
+                </ul>
+            </li>
+
+            @if (userService.HasAdminAccess())
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-page="/Users/Index">Users</a>
+                </li>
+            }
+
+            @if (aggregationRepository.GetWebServers().Count() > 0)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Instances</a>
+                    <ul class="dropdown-menu">
+                        @foreach (var TBWebServer in aggregationRepository.GetWebServers())
+                        {
+                            <li>
+                                <a class="dropdown-item" asp-area="" asp-route-redirecturl="@TBWebServer.ServerName" asp-page="/Utility/Redirect">@TBWebServer.InstanceName</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

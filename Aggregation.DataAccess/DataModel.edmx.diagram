@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3dcca6916dfe408a8c330bf6abffa429" Name="Diagram1" ZoomLevel="49">
+        <EntityTypeShape EntityType="igenmsModel.rtbNode" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="igenmsModel.rtbNodeMetric" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="igenmsModel.rtbNodeParent" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="igenmsModel.rtbNodeType" Width="1.5" PointX="9.75" PointY="7.75" />
+        <EntityTypeShape EntityType="igenmsModel.rtbNodeTypeMetric" Width="1.5" PointX="11.75" PointY="4.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbActivity" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbActivityLogger" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="igenmsModel.tbConfiguration" Width="1.5" PointX="7.75" PointY="1.125" />
+        <EntityTypeShape EntityType="igenmsModel.tbConfigurationByDate" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbInterval" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="igenmsModel.tbJob" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="igenmsModel.tbJobType" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="igenmsModel.tbLogActivity" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="igenmsModel.tbLogError" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="igenmsModel.tbNodeStatusConfig" Width="1.5" PointX="11.75" PointY="8.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbNodeStatusTemp" Width="1.5" PointX="8.75" PointY="11.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbObservation" Width="1.5" PointX="10.75" PointY="11.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbObservationsTemplate" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbPriority" Width="1.5" PointX="0.75" PointY="6.5" />
+        <EntityTypeShape EntityType="igenmsModel.tbRawData" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbRawDataDaily" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbStatu" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbUser" Width="1.5" PointX="7.75" PointY="7.125" />
+        <EntityTypeShape EntityType="igenmsModel.tbWebServer" Width="1.5" PointX="12.75" PointY="11.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbNodeMetricValue_5Minute" Width="1.5" PointX="13.75" PointY="2.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbNodeMetricValue_Day" Width="1.5" PointX="14.75" PointY="9.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbNodeMetricValue_Hour" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="igenmsModel.tbNodeStatu" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetAggregatedBase" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetAggregatedMedian" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetAggregatedPercentile" Width="1.5" PointX="16.75" PointY="7.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetAggregatedStdDev" Width="1.5" PointX="16.75" PointY="10.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetChildNodeStatu" Width="1.5" PointX="12.75" PointY="16.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetJob" Width="1.5" PointX="16.75" PointY="13.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwGetPreviousNodeStatusValue" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwNode" Width="1.5" PointX="18.75" PointY="3.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwNodeMetric" Width="1.5" PointX="8.75" PointY="18.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwNodeMetricValue" Width="1.5" PointX="18.75" PointY="9.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwNodeParent" Width="1.5" PointX="18.75" PointY="14.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwNodeType" Width="1.5" PointX="18.75" PointY="17.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwNodeTypeMetric" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="igenmsModel.vwRNodeTypeMetric" Width="1.5" PointX="2.75" PointY="19.75" />
+        <AssociationConnector Association="igenmsModel.fk_tbActivityLogger_TypeId" />
+        <AssociationConnector Association="igenmsModel.fk_tbActivityLogger_ConfigurationId" />
+        <AssociationConnector Association="igenmsModel.fk_tbActivityLogger_UserId" />
+        <AssociationConnector Association="igenmsModel.fk_tbJob_interval" />
+        <AssociationConnector Association="igenmsModel.fk_tbJob_JobType" />
+        <AssociationConnector Association="igenmsModel.fk_tbJob_LogActivity" />
+        <AssociationConnector Association="igenmsModel.fk_tbJob_logs" />
+        <AssociationConnector Association="igenmsModel.fk_tbJob_priority" />
+        <AssociationConnector Association="igenmsModel.fk_tbJob_status" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

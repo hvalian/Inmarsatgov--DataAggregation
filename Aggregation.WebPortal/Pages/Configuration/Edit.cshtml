@@ -1,0 +1,142 @@
+﻿@page
+@model Website.Pages.Configuration.EditModel
+
+@{
+    string pageTitle = "Configuration - Edit";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="TbConfiguration.Id" />
+                <input type="hidden" asp-for="TbConfiguration.Immediate" />
+                <input type="hidden" asp-for="TbConfiguration.Key" />
+                <input type="hidden" asp-for="TbConfiguration.ReadOnly" />
+                <input type="hidden" asp-for="TbConfiguration.Type" />
+                <input type="hidden" asp-for="TbConfiguration.Value" />
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" placeholder="Description is required" required />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TbConfiguration.Value" class="control-label"></label>
+
+                    @if (Model.TbConfiguration.Key == "ActionViewOpenPeriod")
+                    {
+                        <input class="form-control" asp-for="ActionViewOpenPeriod" required />
+                        <span asp-validation-for="ActionViewOpenPeriod" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "CommandTimeout")
+                    {
+                        <input class="form-control" asp-for="CommandTimeout" required />
+                        <span asp-validation-for="CommandTimeout" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "HistoricalViewOpenPeriod")
+                    {
+                        <input class="form-control" asp-for="HistoricalViewOpenPeriod" required />
+                        <span asp-validation-for="HistoricalViewOpenPeriod" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "Job_StartTimeDelay")
+                    {
+                        <input class="form-control" asp-for="Job_StartTimeDelay" required />
+                        <span asp-validation-for="Job_StartTimeDelay" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "Job_SuspendProcessingAfter")
+                    {
+                        <input class="form-control" asp-for="Job_SuspendProcessingAfter" required />
+                        <span asp-validation-for="Job_SuspendProcessingAfter" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "NumberOfDaysForStats")
+                    {
+                        <input class="form-control" asp-for="NumberOfDaysForStats" required />
+                        <span asp-validation-for="NumberOfDaysForStats" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "NumberOfRefresh")
+                    {
+                        <input class="form-control" asp-for="NumberOfRefresh" required />
+                        <span asp-validation-for="NumberOfRefresh" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "ProjectName")
+                    {
+                        <input class="form-control" asp-for="ProjectName" required />
+                        <span asp-validation-for="ProjectName" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "Refresh_DailyJobOnce")
+                    {
+                        @for (var i = 0; i < Model.BoolRadioButtons.Count(); i++)
+                        {
+                            <div class='form-check form-check-inline'>
+                                <input type='radio' class='form-check-input' asp-for='@Model.Refresh_DailyJobOnce' value='@Model.BoolRadioButtons[i].Name' id='@Model.BoolRadioButtons[i].ElementId' required />
+                                <label class='form-check-label' for='@Model.BoolRadioButtons[i].ElementId'> @Model.BoolRadioButtons[i].Name</label>
+                            </div>
+                        }
+                    }
+
+                    @if (Model.TbConfiguration.Key == "Refresh_Enabled")
+                    {
+                        @for (var i = 0; i < Model.BoolRadioButtons.Count(); i++)
+                        {
+                            <div class='form-check form-check-inline'>
+                                <input type='radio' class='form-check-input' asp-for='@Model.Refresh_Enabled' value='@Model.BoolRadioButtons[i].Name' id='@Model.BoolRadioButtons[i].ElementId' required />
+                                <label class='form-check-label' for='@Model.BoolRadioButtons[i].ElementId'> @Model.BoolRadioButtons[i].Name</label>
+                            </div>
+                        }
+                    }
+
+                    @if (Model.TbConfiguration.Key == "Refresh_Interval")
+                    {
+                        <input class="form-control" asp-for="Refresh_Interval" required />
+                        <span asp-validation-for="Refresh_Interval" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "ReRun_StartTimeDelay")
+                    {
+                        <input class="form-control" asp-for="ReRun_StartTimeDelay" required />
+                        <span asp-validation-for="ReRun_StartTimeDelay" class="text-danger"></span>
+                    }
+
+                    @if (Model.TbConfiguration.Key == "Retention_ActivityLog_NumberOfHours")
+                    {
+                        <input class="form-control" asp-for="Retention_ActivityLog_NumberOfHours" required />
+                        <span asp-validation-for="Retention_ActivityLog_NumberOfHours" class="text-danger"></span>
+                    }
+
+
+                    @if (Model.TbConfiguration.Key == "SP_CommandTimeout")
+                    {
+                        <input class="form-control" asp-for="SP_CommandTimeout" required />
+                        <span asp-validation-for="SP_CommandTimeout" class="text-danger"></span>
+                    }
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

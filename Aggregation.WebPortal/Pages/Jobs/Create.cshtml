@@ -1,0 +1,110 @@
+﻿@page
+@model Website.Pages.Jobs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TbJob</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TbJob.JobType" class="control-label"></label>
+                <select asp-for="TbJob.JobType" class ="form-control" asp-items="ViewBag.JobType"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.ComputerName" class="control-label"></label>
+                <input asp-for="TbJob.ComputerName" class="form-control" />
+                <span asp-validation-for="TbJob.ComputerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.Status" class="control-label"></label>
+                <select asp-for="TbJob.Status" class ="form-control" asp-items="ViewBag.Status"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.Interval" class="control-label"></label>
+                <select asp-for="TbJob.Interval" class ="form-control" asp-items="ViewBag.Interval"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.Priority" class="control-label"></label>
+                <select asp-for="TbJob.Priority" class ="form-control" asp-items="ViewBag.Priority"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.StartDateTime" class="control-label"></label>
+                <input asp-for="TbJob.StartDateTime" class="form-control" />
+                <span asp-validation-for="TbJob.StartDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.EndDateTime" class="control-label"></label>
+                <input asp-for="TbJob.EndDateTime" class="form-control" />
+                <span asp-validation-for="TbJob.EndDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.StartAfterDateTime" class="control-label"></label>
+                <input asp-for="TbJob.StartAfterDateTime" class="form-control" />
+                <span asp-validation-for="TbJob.StartAfterDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.ProcessId" class="control-label"></label>
+                <input asp-for="TbJob.ProcessId" class="form-control" />
+                <span asp-validation-for="TbJob.ProcessId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.AggregationStartDateTime" class="control-label"></label>
+                <input asp-for="TbJob.AggregationStartDateTime" class="form-control" />
+                <span asp-validation-for="TbJob.AggregationStartDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.AggregationEndDateTime" class="control-label"></label>
+                <input asp-for="TbJob.AggregationEndDateTime" class="form-control" />
+                <span asp-validation-for="TbJob.AggregationEndDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.CreatedDateTime" class="control-label"></label>
+                <input asp-for="TbJob.CreatedDateTime" class="form-control" />
+                <span asp-validation-for="TbJob.CreatedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.ParentJobId" class="control-label"></label>
+                <input asp-for="TbJob.ParentJobId" class="form-control" />
+                <span asp-validation-for="TbJob.ParentJobId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.Processed" class="control-label"></label>
+                <input asp-for="TbJob.Processed" class="form-control" />
+                <span asp-validation-for="TbJob.Processed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.IsRecovery" class="control-label"></label>
+                <input asp-for="TbJob.IsRecovery" class="form-control" />
+                <span asp-validation-for="TbJob.IsRecovery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.CreatedBy" class="control-label"></label>
+                <input asp-for="TbJob.CreatedBy" class="form-control" />
+                <span asp-validation-for="TbJob.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TbJob.ExitCode" class="control-label"></label>
+                <input asp-for="TbJob.ExitCode" class="form-control" />
+                <span asp-validation-for="TbJob.ExitCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

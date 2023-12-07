@@ -1,0 +1,101 @@
+﻿@page
+@using Aggregation_DataModels.Enums;
+@model Aggregation.WebPortal.Pages.Jobs.Queue.IndexModel
+@{
+    string pageTitle = "Jobs - Queue";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        Job Id
+                    </th>
+                    <th>
+                        Start<br />DateTime
+                    </th>
+                    <th>
+                        start Afte<br />DateTime
+                    </th>
+                    <th>
+                        Agg. Start<br />DateTime
+                    </th>
+                    <th>
+                        Agg. End<br />DateTime
+                    </th>
+                    <th>
+                        Interval
+                    </th>
+                    <th>
+                        JobType
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Jobs != null)
+                {
+                    @*@for (var i = 0; i < Model.Jobs.Count(); i++)*@
+                    @foreach (var item in Model.Jobs)
+                    {
+                        <tr>
+                            <td>
+                                @if (Model.HasAccessToQueue() && item.JobType == (int)Job_Type.Rerun && item.Status == (int)Status.Created)
+                                {
+                                    <input name="AreChecked" type="checkbox" value="@item.Id" />
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartAfterDateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AggregationStartDateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AggregationEndDateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IntervalNavigation.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobTypeNavigation.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PriorityNavigation.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StatusNavigation.Description)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @if (Model.HasAccessToQueue() && Model.ShowDeleteButton())
+        {
+            <div class="form-group">
+                <input type="submit" value="Delete Selected Jobs" class="btn btn-primary" />
+            </div>
+        }
+    </form>
+</div>

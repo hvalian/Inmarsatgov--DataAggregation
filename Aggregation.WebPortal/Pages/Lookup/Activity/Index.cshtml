@@ -1,0 +1,38 @@
+﻿@page
+@model Website.Pages.Lookup.Activity.IndexModel
+
+@{
+    string pageTitle = "Activity";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Activities)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

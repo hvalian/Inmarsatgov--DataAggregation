@@ -1,0 +1,3075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="igenmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="rtbNode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="activationDate" Type="datetime" />
+          <Property Name="deactivationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="rtbNodeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeMetricId" Type="int" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rtbNodeParent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="parentnodeId" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rtbNodeType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="config" Type="xml" />
+          <Property Name="defaultValue" Type="int" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rtbNodeTypeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="rollUpAggregateConfig" Type="xml" />
+          <Property Name="preFillValueConfig" Type="xml" />
+          <Property Name="defaultValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usePreviousValue" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbActivity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbActivityLogger">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="activityId" Type="int" Nullable="false" />
+          <Property Name="configurationId" Type="int" />
+          <Property Name="oldValue" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="newValue" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbConfiguration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="readOnly" Type="bit" Nullable="false" />
+          <Property Name="immediate" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbConfigurationByDate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aggregationDate" Type="datetime" Nullable="false" />
+          <Property Name="Refresh_Enabled" Type="bit" Nullable="false" />
+          <Property Name="Refresh_NumberOfDays" Type="int" Nullable="false" />
+          <Property Name="Refresh_Interval" Type="int" Nullable="false" />
+          <Property Name="Job_StartTimeDelay" Type="int" Nullable="false" />
+          <Property Name="createdDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbInterval">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbJob">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jobType" Type="int" Nullable="false" />
+          <Property Name="computerName" Type="varchar" MaxLength="255" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="interval" Type="int" />
+          <Property Name="priority" Type="int" Nullable="false" />
+          <Property Name="startDateTime" Type="datetime" />
+          <Property Name="endDateTime" Type="datetime" />
+          <Property Name="startAfterDateTime" Type="datetime" Nullable="false" />
+          <Property Name="processId" Type="int" />
+          <Property Name="aggregationStartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="aggregationEndDateTime" Type="datetime" Nullable="false" />
+          <Property Name="createdDateTime" Type="datetime" Nullable="false" />
+          <Property Name="parentJobId" Type="bigint" />
+          <Property Name="processed" Type="int" />
+          <Property Name="isRecovery" Type="bit" Nullable="false" />
+          <Property Name="createdBy" Type="varchar" MaxLength="255" />
+          <Property Name="exitCode" Type="int" />
+        </EntityType>
+        <EntityType Name="tbJobType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbLogActivity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jobId" Type="bigint" Nullable="false" />
+          <Property Name="methodName" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" />
+          <Property Name="elapsedTime" Type="bigint" Nullable="false" />
+          <Property Name="parameters" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="tbLogError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="jobId" Type="bigint" Nullable="false" />
+          <Property Name="methodName" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="exceptionMessage" Type="varchar(max)" Nullable="false" />
+          <Property Name="innerException" Type="varchar(max)" />
+          <Property Name="returnCode" Type="int" />
+          <Property Name="elapsedTime" Type="bigint" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" />
+          <Property Name="stackTrace" Type="varchar(max)" />
+          <Property Name="parameters" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="tbNodeStatusConfig">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="include" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbNodeStatusTemp">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+          </Key>
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="value" Type="bit" Nullable="false" />
+          <Property Name="average" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="tbObservations">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="observationid" Type="bigint" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeMetricId" Type="int" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="1024" />
+          <Property Name="average" Type="float" />
+          <Property Name="median" Type="float" />
+          <Property Name="mode" Type="float" />
+          <Property Name="stdDev" Type="float" />
+          <Property Name="95pct" Type="float" />
+          <Property Name="sum" Type="float" />
+          <Property Name="min" Type="float" />
+          <Property Name="max" Type="float" />
+          <Property Name="count" Type="int" />
+          <Property Name="maxCount" Type="int" />
+          <Property Name="first" Type="varchar" MaxLength="1024" />
+          <Property Name="last" Type="varchar" MaxLength="1024" />
+          <Property Name="usePreviousValue" Type="bit" Nullable="false" />
+          <Property Name="hasObservation" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbObservationsTemplate">
+          <Key>
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPriority">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbRawData">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="datetime" />
+          <Property Name="value" Type="varchar" MaxLength="1024" />
+          <Property Name="isbackFilled" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbRawDataDaily">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="datetime" />
+          <Property Name="value" Type="varchar" MaxLength="1024" />
+          <Property Name="isbackFilled" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="hasAdminAccess" Type="bit" Nullable="false" />
+          <Property Name="hasAccessToConfiguration" Type="bit" Nullable="false" />
+          <Property Name="hasAccessToQueue" Type="bit" Nullable="false" />
+          <Property Name="hasAccessToRefreshJob" Type="bit" Nullable="false" />
+          <Property Name="hasAccessToUpdateClock" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbWebServer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serverName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="serverIP" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="InstanceName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbNodeMetricValue_5Minute">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeMetricId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="1024" />
+          <Property Name="usePreviousValue" Type="bit" Nullable="false" />
+          <Property Name="originalStatus" Type="bit" Nullable="false" />
+          <Property Name="updatedDate" Type="datetime" Nullable="false" />
+          <Property Name="average" Type="float" />
+          <Property Name="median" Type="float" />
+          <Property Name="mode" Type="float" />
+          <Property Name="stdDev" Type="float" />
+          <Property Name="95pct" Type="float" />
+          <Property Name="sum" Type="float" />
+          <Property Name="min" Type="float" />
+          <Property Name="max" Type="float" />
+          <Property Name="count" Type="int" />
+          <Property Name="maxCount" Type="int" />
+          <Property Name="first" Type="varchar" MaxLength="1024" />
+          <Property Name="last" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="tbNodeMetricValue_Day">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeMetricId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="1024" />
+          <Property Name="valueType" Type="varchar" MaxLength="1024" />
+          <Property Name="epochTimestamp" Type="bigint" />
+          <Property Name="average" Type="float" />
+          <Property Name="median" Type="float" />
+          <Property Name="mode" Type="float" />
+          <Property Name="stdDev" Type="float" />
+          <Property Name="95pct" Type="float" />
+          <Property Name="sum" Type="float" />
+          <Property Name="min" Type="float" />
+          <Property Name="max" Type="float" />
+          <Property Name="count" Type="int" />
+          <Property Name="maxCount" Type="int" />
+          <Property Name="first" Type="varchar" MaxLength="1024" />
+          <Property Name="last" Type="varchar" MaxLength="1024" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="updatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbNodeMetricValue_Hour">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeMetricId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="1024" />
+          <Property Name="valueType" Type="varchar" MaxLength="1024" />
+          <Property Name="epochTimestamp" Type="bigint" />
+          <Property Name="average" Type="float" />
+          <Property Name="median" Type="float" />
+          <Property Name="mode" Type="float" />
+          <Property Name="stdDev" Type="float" />
+          <Property Name="95pct" Type="float" />
+          <Property Name="sum" Type="float" />
+          <Property Name="min" Type="float" />
+          <Property Name="max" Type="float" />
+          <Property Name="count" Type="int" />
+          <Property Name="maxCount" Type="int" />
+          <Property Name="first" Type="varchar" MaxLength="1024" />
+          <Property Name="last" Type="varchar" MaxLength="1024" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="updatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbNodeStatus">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="originalStatus" Type="bit" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="updatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetAggregatedBase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetAggregatedBase">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="nodeid" />
+          </Key>
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nodeid" Type="int" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="datetime" />
+          <Property Name="average" Type="float" />
+          <Property Name="sum" Type="float" />
+          <Property Name="min" Type="float" />
+          <Property Name="max" Type="float" />
+          <Property Name="count" Type="int" />
+          <Property Name="first" Type="int" />
+          <Property Name="last" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetAggregatedMedian' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetAggregatedMedian">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="datetime" />
+          <Property Name="median" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetAggregatedPercentile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetAggregatedPercentile">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="datetime" />
+          <Property Name="percentile" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetAggregatedStdDev' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetAggregatedStdDev">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="datetime" />
+          <Property Name="stdDev" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetChildNodeStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetChildNodeStatus">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="timestamp" />
+            <PropertyRef Name="status" />
+          </Key>
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Aggregation.Aggregation.vwGetDashbordData' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="vwGetDashbordData">
+          <Property Name="AverageProcessingTime_HourlyJob" Type="int" />
+          <Property Name="AverageProcessingTime_DailyJob" Type="int" />
+          <Property Name="JobProcessingHasIssues" Type="bit" />
+          <Property Name="JobProcessingIsSuspended" Type="bit" />
+          <Property Name="LastErrJobAggregationDateTime" Type="datetime" />
+          <Property Name="LastErrJobElapsedtime" Type="int" />
+          <Property Name="LastErrJobId" Type="int" />
+          <Property Name="LastErrJobInterval" Type="varchar" MaxLength="255" />
+          <Property Name="LastErrJobStartDateTime" Type="datetime" />
+          <Property Name="LastErrJobEndDateTime" Type="datetime" />
+          <Property Name="LastErrJobStatus" Type="varchar" MaxLength="255" />
+          <Property Name="LastJobAggregationDateTime" Type="datetime" />
+          <Property Name="LastJobElapsedtime" Type="int" />
+          <Property Name="LastJobId" Type="int" />
+          <Property Name="LastJobInterval" Type="varchar" MaxLength="255" />
+          <Property Name="LastJobStartDateTime" Type="datetime" />
+          <Property Name="LastJobEndDateTime" Type="datetime" />
+          <Property Name="LastJobStatus" Type="varchar" MaxLength="255" />
+          <Property Name="NextJobAggregationDateTime" Type="datetime" />
+          <Property Name="NextJobId" Type="int" />
+          <Property Name="NextJobInterval" Type="varchar" MaxLength="255" />
+          <Property Name="NextJobStartAfterDateTime" Type="datetime" />
+          <Property Name="NextJobStartDateTime" Type="datetime" />
+          <Property Name="NextJobStatus" Type="varchar" MaxLength="255" />
+          <Property Name="NextJobWillStartInMinutes" Type="int" />
+          <Property Name="CommandTimeout" Type="int" />
+          <Property Name="Job_StartTimeDelay" Type="int" />
+          <Property Name="Job_SuspendProcessingAfter" Type="datetime" />
+          <Property Name="NumberOfDaysForStats" Type="int" />
+          <Property Name="NumberOfRefresh" Type="int" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" />
+          <Property Name="Refresh_Enabled" Type="bit" />
+          <Property Name="Refresh_Interval" Type="int" />
+          <Property Name="Retention_ActivityLog_NumberOfHours" Type="int" />
+          <Property Name="SP_CommandTimeout" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetJobs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetJobs">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="JobType" />
+            <PropertyRef Name="StatusId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Interval" />
+            <PropertyRef Name="PriorityId" />
+            <PropertyRef Name="Priority" />
+            <PropertyRef Name="startAfterDateTime" />
+            <PropertyRef Name="aggregationStartDateTime" />
+            <PropertyRef Name="aggregationEndDateTime" />
+            <PropertyRef Name="createdDateTime" />
+            <PropertyRef Name="isRecovery" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="JobType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="computerName" Type="varchar" MaxLength="255" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IntervalId" Type="int" />
+          <Property Name="Interval" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PriorityId" Type="int" Nullable="false" />
+          <Property Name="Priority" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="startDateTime" Type="datetime" />
+          <Property Name="endDateTime" Type="datetime" />
+          <Property Name="startAfterDateTime" Type="datetime" Nullable="false" />
+          <Property Name="processId" Type="int" />
+          <Property Name="aggregationStartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="aggregationEndDateTime" Type="datetime" Nullable="false" />
+          <Property Name="createdDateTime" Type="datetime" Nullable="false" />
+          <Property Name="processed" Type="int" />
+          <Property Name="isRecovery" Type="bit" Nullable="false" />
+          <Property Name="createdBy" Type="varchar" MaxLength="255" />
+          <Property Name="exitCode" Type="int" />
+          <Property Name="listOfJobs" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwGetPreviousNodeStatusValue' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwGetPreviousNodeStatusValue">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="defaultvalue" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="elapsedTime" Type="int" />
+          <Property Name="defaultvalue" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwNode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwNode">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="connectorId" />
+            <PropertyRef Name="pollerId" />
+            <PropertyRef Name="useMetricTemplate" />
+            <PropertyRef Name="pollingInterval" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="connectorId" Type="int" Nullable="false" />
+          <Property Name="connectorCreds" Type="varchar" MaxLength="1024" />
+          <Property Name="sourceInfo" Type="varchar" MaxLength="128" />
+          <Property Name="pollerId" Type="int" Nullable="false" />
+          <Property Name="useMetricTemplate" Type="bit" Nullable="false" />
+          <Property Name="nodeTypeTemplateId" Type="int" />
+          <Property Name="pollingInterval" Type="int" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="pollPolicy" Type="varchar" MaxLength="20" />
+          <Property Name="lastPollDate" Type="datetime" />
+          <Property Name="nextPollDate" Type="datetime" />
+          <Property Name="nodeData" Type="xml" />
+          <Property Name="processorName" Type="varchar" MaxLength="255" />
+          <Property Name="activationDate" Type="datetime" />
+          <Property Name="deactivationDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwNodeMetric' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwNodeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="pollingInterval" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sampleValue" Type="varchar" MaxLength="1024" />
+          <Property Name="description" Type="varchar" MaxLength="1024" />
+          <Property Name="metricValue1Label" Type="varchar" MaxLength="128" />
+          <Property Name="metricValue2Label" Type="varchar" MaxLength="128" />
+          <Property Name="metricValue3Label" Type="varchar" MaxLength="128" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="pollingInterval" Type="int" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="metricSourceInfo" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="metricUnits" Type="varchar" MaxLength="50" />
+          <Property Name="nodeMetricData" Type="xml" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwNodeMetricValue' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwNodeMetricValue">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeMetricId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="timestamp" />
+            <PropertyRef Name="value" />
+            <PropertyRef Name="lastPolledTimestamp" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="nodeMetricId" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="metricvalue1" Type="varchar" MaxLength="1024" />
+          <Property Name="metricvalue2" Type="varchar" MaxLength="1024" />
+          <Property Name="metricvalue3" Type="varchar" MaxLength="1024" />
+          <Property Name="epochTimestamp" Type="bigint" />
+          <Property Name="lastPolledTimestamp" Type="bigint" Nullable="false" />
+          <Property Name="backFillMetricValueID" Type="bigint" />
+          <Property Name="isbackFilled" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwNodeParent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwNodeParent">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="parentnodeId" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nodeId" Type="int" Nullable="false" />
+          <Property Name="parentnodeId" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwNodeType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwNodeType">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="config" Type="xml" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwNodeTypeMetric' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwNodeTypeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="pollingInterval" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sampleValue" Type="varchar" MaxLength="1024" />
+          <Property Name="description" Type="varchar" MaxLength="1024" />
+          <Property Name="metricValue1Label" Type="varchar" MaxLength="128" />
+          <Property Name="metricValue2Label" Type="varchar" MaxLength="128" />
+          <Property Name="metricValue3Label" Type="varchar" MaxLength="128" />
+          <Property Name="pollingInterval" Type="int" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="metricSourceInfo" Type="varchar" MaxLength="50" />
+          <Property Name="metricUnits" Type="varchar" MaxLength="50" />
+          <Property Name="rollUpAggregateConfig" Type="xml" />
+          <Property Name="isCalculatedMetric" Type="varchar" MaxLength="1" />
+          <Property Name="displayName" Type="varchar" MaxLength="250" />
+          <Property Name="config" Type="xml" />
+          <Property Name="preFillValueConfig" Type="xml" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Aggregation.Aggregation.vwRNodeTypeMetric' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwRNodeTypeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="NodeType_Description" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="MetricKey_Description" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+            <PropertyRef Name="defaultValue" />
+            <PropertyRef Name="usePreviousValue" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nodeTypeId" Type="int" Nullable="false" />
+          <Property Name="NodeType_Description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricKey" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MetricKey_Description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="metricValueType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="dateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="defaultValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usePreviousValue" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_tbActivityLogger_ConfigurationId">
+          <End Role="tbConfiguration" Type="Self.tbConfiguration" Multiplicity="0..1" />
+          <End Role="tbActivityLogger" Type="Self.tbActivityLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbConfiguration">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbActivityLogger">
+              <PropertyRef Name="configurationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbActivityLogger_TypeId">
+          <End Role="tbActivity" Type="Self.tbActivity" Multiplicity="1" />
+          <End Role="tbActivityLogger" Type="Self.tbActivityLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActivity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbActivityLogger">
+              <PropertyRef Name="activityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbActivityLogger_UserId">
+          <End Role="tbUser" Type="Self.tbUser" Multiplicity="1" />
+          <End Role="tbActivityLogger" Type="Self.tbActivityLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbActivityLogger">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_interval">
+          <End Role="tbInterval" Type="Self.tbInterval" Multiplicity="0..1" />
+          <End Role="tbJob" Type="Self.tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInterval">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="interval" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_JobType">
+          <End Role="tbJobType" Type="Self.tbJobType" Multiplicity="1" />
+          <End Role="tbJob" Type="Self.tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbJobType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="jobType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_LogActivity">
+          <End Role="tbJob" Type="Self.tbJob" Multiplicity="1" />
+          <End Role="tbLogActivity" Type="Self.tbLogActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbJob">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbLogActivity">
+              <PropertyRef Name="jobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_logs">
+          <End Role="tbJob" Type="Self.tbJob" Multiplicity="1" />
+          <End Role="tbLogError" Type="Self.tbLogError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbJob">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbLogError">
+              <PropertyRef Name="jobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_priority">
+          <End Role="tbPriority" Type="Self.tbPriority" Multiplicity="1" />
+          <End Role="tbJob" Type="Self.tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPriority">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="priority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_status">
+          <End Role="tbStatus" Type="Self.tbStatus" Multiplicity="1" />
+          <End Role="tbJob" Type="Self.tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fnGet95pctValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetBaseMaxCountValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="int">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetBaseModeValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetDaily95pctValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetDailyStdDevValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetFirstValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="varchar">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetLastObservationValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="varchar">
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="timeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetLastValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="varchar">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetListOfJobs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="varchar(max)">
+          <Parameter Name="jobId" Type="bigint" Mode="In" />
+          <Parameter Name="fromDate" Type="datetime" Mode="In" />
+          <Parameter Name="toDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetMaxCountValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="int">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetMedianValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetMetricKeys" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="MetricKey" Type="varchar" MaxLength="255" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fnGetMinute" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="datetime">
+          <Parameter Name="timestamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetModeValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetPreviousNodeStatusValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="int">
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="timeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnGetStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="AverageProcessingTime_HourlyJob" Type="int" />
+                <Property Name="AverageProcessingTime_DailyJob" Type="int" />
+                <Property Name="CommandTimeout" Type="int" />
+                <Property Name="Job_StartTimeDelay" Type="int" />
+                <Property Name="Job_SuspendProcessingAfter" Type="datetime" />
+                <Property Name="JobProcessingHasIssues" Type="bit" />
+                <Property Name="JobProcessingIsSuspended" Type="bit" />
+                <Property Name="LastErrJobAggregationDateTime" Type="datetime" />
+                <Property Name="LastErrJobElapsedtime" Type="int" />
+                <Property Name="LastErrJobId" Type="int" />
+                <Property Name="LastErrJobInterval" Type="varchar" MaxLength="255" />
+                <Property Name="LastErrJobStartDateTime" Type="datetime" />
+                <Property Name="LastErrJobEndDateTime" Type="datetime" />
+                <Property Name="LastErrJobStatus" Type="varchar" MaxLength="255" />
+                <Property Name="LastJobAggregationDateTime" Type="datetime" />
+                <Property Name="LastJobElapsedtime" Type="int" />
+                <Property Name="LastJobId" Type="int" />
+                <Property Name="LastJobInterval" Type="varchar" MaxLength="255" />
+                <Property Name="LastJobStartDateTime" Type="datetime" />
+                <Property Name="LastJobEndDateTime" Type="datetime" />
+                <Property Name="LastHourlyJob_Scheduled_DateTime" Type="datetime" />
+                <Property Name="LastJobStatus" Type="varchar" MaxLength="255" />
+                <Property Name="NextJobAggregationDateTime" Type="datetime" />
+                <Property Name="NextJobId" Type="int" />
+                <Property Name="NextJobInterval" Type="varchar" MaxLength="255" />
+                <Property Name="NextJobStartAfterDateTime" Type="datetime" />
+                <Property Name="NextJobStartDateTime" Type="datetime" />
+                <Property Name="NextJobStatus" Type="varchar" MaxLength="255" />
+                <Property Name="NextJobWillStartInMinutes" Type="int" />
+                <Property Name="NumberOfDaysForStats" Type="int" />
+                <Property Name="NumberOfRefresh" Type="int" />
+                <Property Name="ProjectName" Type="varchar" MaxLength="50" />
+                <Property Name="Refresh_Enabled" Type="bit" />
+                <Property Name="Refresh_Interval" Type="int" />
+                <Property Name="Retention_ActivityLog_NumberOfHours" Type="int" />
+                <Property Name="SP_CommandTimeout" Type="int" />
+                <Property Name="SuspendAfter" Type="datetime" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fnGetStdDevValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="float">
+          <Parameter Name="nodeTypeId" Type="int" Mode="In" />
+          <Parameter Name="metricKey" Type="varchar" Mode="In" />
+          <Parameter Name="nodeId" Type="int" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnRoundTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" ReturnType="datetime">
+          <Parameter Name="Time" Type="datetime" Mode="In" />
+          <Parameter Name="RoundToMin" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnStringList2Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="List" Type="varchar(max)" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="item" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="spCleanRefTables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" />
+        <Function Name="spCleanUpDaily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="jobId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="spCleanUpHourly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="jobId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="spMergeRefTables" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation" />
+        <Function Name="spPopulate5Minute" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="jobId" Type="bigint" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spPopulateDaily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spPopulateHourly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spPopulateNodeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="jobId" Type="bigint" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spPopulateStaging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Aggregation">
+          <Parameter Name="jobId" Type="bigint" Mode="In" />
+          <Parameter Name="fromTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="toTimeStamp" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="igenmsModelStoreContainer">
+          <EntitySet Name="rtbNode" EntityType="Self.rtbNode" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="rtbNodeMetric" EntityType="Self.rtbNodeMetric" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="rtbNodeParent" EntityType="Self.rtbNodeParent" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="rtbNodeType" EntityType="Self.rtbNodeType" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="rtbNodeTypeMetric" EntityType="Self.rtbNodeTypeMetric" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbActivity" EntityType="Self.tbActivity" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbActivityLogger" EntityType="Self.tbActivityLogger" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbConfiguration" EntityType="Self.tbConfiguration" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbConfigurationByDate" EntityType="Self.tbConfigurationByDate" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbInterval" EntityType="Self.tbInterval" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbJob" EntityType="Self.tbJob" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbJobType" EntityType="Self.tbJobType" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbLogActivity" EntityType="Self.tbLogActivity" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbLogError" EntityType="Self.tbLogError" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbNodeStatusConfig" EntityType="Self.tbNodeStatusConfig" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbNodeStatusTemp" EntityType="Self.tbNodeStatusTemp" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbObservations" EntityType="Self.tbObservations" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbObservationsTemplate" EntityType="Self.tbObservationsTemplate" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbPriority" EntityType="Self.tbPriority" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbRawData" EntityType="Self.tbRawData" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbRawDataDaily" EntityType="Self.tbRawDataDaily" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbStatus" EntityType="Self.tbStatus" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbUser" EntityType="Self.tbUser" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbWebServer" EntityType="Self.tbWebServer" Schema="Aggregation" store:Type="Tables" />
+          <EntitySet Name="tbNodeMetricValue_5Minute" EntityType="Self.tbNodeMetricValue_5Minute" Schema="Summary" store:Type="Tables" />
+          <EntitySet Name="tbNodeMetricValue_Day" EntityType="Self.tbNodeMetricValue_Day" Schema="Summary" store:Type="Tables" />
+          <EntitySet Name="tbNodeMetricValue_Hour" EntityType="Self.tbNodeMetricValue_Hour" Schema="Summary" store:Type="Tables" />
+          <EntitySet Name="tbNodeStatus" EntityType="Self.tbNodeStatus" Schema="Summary" store:Type="Tables" />
+          <EntitySet Name="vwGetAggregatedBase" EntityType="Self.vwGetAggregatedBase" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetAggregatedBase].[nodeTypeId] AS [nodeTypeId], 
+    [vwGetAggregatedBase].[metricKey] AS [metricKey], 
+    [vwGetAggregatedBase].[nodeid] AS [nodeid], 
+    [vwGetAggregatedBase].[reportingtimestamp] AS [reportingtimestamp], 
+    [vwGetAggregatedBase].[average] AS [average], 
+    [vwGetAggregatedBase].[sum] AS [sum], 
+    [vwGetAggregatedBase].[min] AS [min], 
+    [vwGetAggregatedBase].[max] AS [max], 
+    [vwGetAggregatedBase].[count] AS [count], 
+    [vwGetAggregatedBase].[first] AS [first], 
+    [vwGetAggregatedBase].[last] AS [last]
+    FROM [Aggregation].[vwGetAggregatedBase] AS [vwGetAggregatedBase]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwGetAggregatedMedian" EntityType="Self.vwGetAggregatedMedian" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetAggregatedMedian].[nodeTypeId] AS [nodeTypeId], 
+    [vwGetAggregatedMedian].[nodeId] AS [nodeId], 
+    [vwGetAggregatedMedian].[metricKey] AS [metricKey], 
+    [vwGetAggregatedMedian].[reportingtimestamp] AS [reportingtimestamp], 
+    [vwGetAggregatedMedian].[median] AS [median]
+    FROM [Aggregation].[vwGetAggregatedMedian] AS [vwGetAggregatedMedian]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwGetAggregatedPercentile" EntityType="Self.vwGetAggregatedPercentile" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetAggregatedPercentile].[nodeTypeId] AS [nodeTypeId], 
+    [vwGetAggregatedPercentile].[nodeId] AS [nodeId], 
+    [vwGetAggregatedPercentile].[metricKey] AS [metricKey], 
+    [vwGetAggregatedPercentile].[reportingtimestamp] AS [reportingtimestamp], 
+    [vwGetAggregatedPercentile].[percentile] AS [percentile]
+    FROM [Aggregation].[vwGetAggregatedPercentile] AS [vwGetAggregatedPercentile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwGetAggregatedStdDev" EntityType="Self.vwGetAggregatedStdDev" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetAggregatedStdDev].[nodeTypeId] AS [nodeTypeId], 
+    [vwGetAggregatedStdDev].[nodeId] AS [nodeId], 
+    [vwGetAggregatedStdDev].[metricKey] AS [metricKey], 
+    [vwGetAggregatedStdDev].[reportingtimestamp] AS [reportingtimestamp], 
+    [vwGetAggregatedStdDev].[stdDev] AS [stdDev]
+    FROM [Aggregation].[vwGetAggregatedStdDev] AS [vwGetAggregatedStdDev]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwGetChildNodeStatus" EntityType="Self.vwGetChildNodeStatus" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetChildNodeStatus].[nodeId] AS [nodeId], 
+    [vwGetChildNodeStatus].[timestamp] AS [timestamp], 
+    [vwGetChildNodeStatus].[status] AS [status]
+    FROM [Aggregation].[vwGetChildNodeStatus] AS [vwGetChildNodeStatus]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwGetJobs" EntityType="Self.vwGetJobs" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetJobs].[id] AS [id], 
+    [vwGetJobs].[JobType] AS [JobType], 
+    [vwGetJobs].[computerName] AS [computerName], 
+    [vwGetJobs].[StatusId] AS [StatusId], 
+    [vwGetJobs].[Status] AS [Status], 
+    [vwGetJobs].[IntervalId] AS [IntervalId], 
+    [vwGetJobs].[Interval] AS [Interval], 
+    [vwGetJobs].[PriorityId] AS [PriorityId], 
+    [vwGetJobs].[Priority] AS [Priority], 
+    [vwGetJobs].[startDateTime] AS [startDateTime], 
+    [vwGetJobs].[endDateTime] AS [endDateTime], 
+    [vwGetJobs].[startAfterDateTime] AS [startAfterDateTime], 
+    [vwGetJobs].[processId] AS [processId], 
+    [vwGetJobs].[aggregationStartDateTime] AS [aggregationStartDateTime], 
+    [vwGetJobs].[aggregationEndDateTime] AS [aggregationEndDateTime], 
+    [vwGetJobs].[createdDateTime] AS [createdDateTime], 
+    [vwGetJobs].[processed] AS [processed], 
+    [vwGetJobs].[isRecovery] AS [isRecovery], 
+    [vwGetJobs].[createdBy] AS [createdBy], 
+    [vwGetJobs].[exitCode] AS [exitCode], 
+    [vwGetJobs].[listOfJobs] AS [listOfJobs]
+    FROM [Aggregation].[vwGetJobs] AS [vwGetJobs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwGetPreviousNodeStatusValue" EntityType="Self.vwGetPreviousNodeStatusValue" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwGetPreviousNodeStatusValue].[id] AS [id], 
+    [vwGetPreviousNodeStatusValue].[elapsedTime] AS [elapsedTime], 
+    [vwGetPreviousNodeStatusValue].[defaultvalue] AS [defaultvalue]
+    FROM [Aggregation].[vwGetPreviousNodeStatusValue] AS [vwGetPreviousNodeStatusValue]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwNode" EntityType="Self.vwNode" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwNode].[id] AS [id], 
+    [vwNode].[name] AS [name], 
+    [vwNode].[active] AS [active], 
+    [vwNode].[nodeTypeId] AS [nodeTypeId], 
+    [vwNode].[connectorId] AS [connectorId], 
+    [vwNode].[connectorCreds] AS [connectorCreds], 
+    [vwNode].[sourceInfo] AS [sourceInfo], 
+    [vwNode].[pollerId] AS [pollerId], 
+    [vwNode].[useMetricTemplate] AS [useMetricTemplate], 
+    [vwNode].[nodeTypeTemplateId] AS [nodeTypeTemplateId], 
+    [vwNode].[pollingInterval] AS [pollingInterval], 
+    [vwNode].[dateCreated] AS [dateCreated], 
+    [vwNode].[dateUpdated] AS [dateUpdated], 
+    [vwNode].[pollPolicy] AS [pollPolicy], 
+    [vwNode].[lastPollDate] AS [lastPollDate], 
+    [vwNode].[nextPollDate] AS [nextPollDate], 
+    [vwNode].[nodeData] AS [nodeData], 
+    [vwNode].[processorName] AS [processorName], 
+    [vwNode].[activationDate] AS [activationDate], 
+    [vwNode].[deactivationDate] AS [deactivationDate]
+    FROM [Aggregation].[vwNode] AS [vwNode]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwNodeMetric" EntityType="Self.vwNodeMetric" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwNodeMetric].[id] AS [id], 
+    [vwNodeMetric].[nodeId] AS [nodeId], 
+    [vwNodeMetric].[nodeTypeId] AS [nodeTypeId], 
+    [vwNodeMetric].[metricKey] AS [metricKey], 
+    [vwNodeMetric].[metricValueType] AS [metricValueType], 
+    [vwNodeMetric].[sampleValue] AS [sampleValue], 
+    [vwNodeMetric].[description] AS [description], 
+    [vwNodeMetric].[metricValue1Label] AS [metricValue1Label], 
+    [vwNodeMetric].[metricValue2Label] AS [metricValue2Label], 
+    [vwNodeMetric].[metricValue3Label] AS [metricValue3Label], 
+    [vwNodeMetric].[active] AS [active], 
+    [vwNodeMetric].[pollingInterval] AS [pollingInterval], 
+    [vwNodeMetric].[dateCreated] AS [dateCreated], 
+    [vwNodeMetric].[dateUpdated] AS [dateUpdated], 
+    [vwNodeMetric].[metricSourceInfo] AS [metricSourceInfo], 
+    [vwNodeMetric].[name] AS [name], 
+    [vwNodeMetric].[metricUnits] AS [metricUnits], 
+    [vwNodeMetric].[nodeMetricData] AS [nodeMetricData]
+    FROM [Aggregation].[vwNodeMetric] AS [vwNodeMetric]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwNodeMetricValue" EntityType="Self.vwNodeMetricValue" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwNodeMetricValue].[id] AS [id], 
+    [vwNodeMetricValue].[nodeId] AS [nodeId], 
+    [vwNodeMetricValue].[nodeMetricId] AS [nodeMetricId], 
+    [vwNodeMetricValue].[nodeTypeId] AS [nodeTypeId], 
+    [vwNodeMetricValue].[metricKey] AS [metricKey], 
+    [vwNodeMetricValue].[metricValueType] AS [metricValueType], 
+    [vwNodeMetricValue].[timestamp] AS [timestamp], 
+    [vwNodeMetricValue].[value] AS [value], 
+    [vwNodeMetricValue].[metricvalue1] AS [metricvalue1], 
+    [vwNodeMetricValue].[metricvalue2] AS [metricvalue2], 
+    [vwNodeMetricValue].[metricvalue3] AS [metricvalue3], 
+    [vwNodeMetricValue].[epochTimestamp] AS [epochTimestamp], 
+    [vwNodeMetricValue].[lastPolledTimestamp] AS [lastPolledTimestamp], 
+    [vwNodeMetricValue].[backFillMetricValueID] AS [backFillMetricValueID], 
+    [vwNodeMetricValue].[isbackFilled] AS [isbackFilled]
+    FROM [Aggregation].[vwNodeMetricValue] AS [vwNodeMetricValue]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwNodeParent" EntityType="Self.vwNodeParent" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwNodeParent].[id] AS [id], 
+    [vwNodeParent].[nodeId] AS [nodeId], 
+    [vwNodeParent].[parentnodeId] AS [parentnodeId], 
+    [vwNodeParent].[active] AS [active], 
+    [vwNodeParent].[dateCreated] AS [dateCreated], 
+    [vwNodeParent].[dateUpdated] AS [dateUpdated]
+    FROM [Aggregation].[vwNodeParent] AS [vwNodeParent]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwNodeType" EntityType="Self.vwNodeType" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwNodeType].[id] AS [id], 
+    [vwNodeType].[name] AS [name], 
+    [vwNodeType].[active] AS [active], 
+    [vwNodeType].[description] AS [description], 
+    [vwNodeType].[dateCreated] AS [dateCreated], 
+    [vwNodeType].[dateUpdated] AS [dateUpdated], 
+    [vwNodeType].[config] AS [config]
+    FROM [Aggregation].[vwNodeType] AS [vwNodeType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwNodeTypeMetric" EntityType="Self.vwNodeTypeMetric" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwNodeTypeMetric].[id] AS [id], 
+    [vwNodeTypeMetric].[nodeTypeId] AS [nodeTypeId], 
+    [vwNodeTypeMetric].[metricKey] AS [metricKey], 
+    [vwNodeTypeMetric].[name] AS [name], 
+    [vwNodeTypeMetric].[metricValueType] AS [metricValueType], 
+    [vwNodeTypeMetric].[sampleValue] AS [sampleValue], 
+    [vwNodeTypeMetric].[description] AS [description], 
+    [vwNodeTypeMetric].[metricValue1Label] AS [metricValue1Label], 
+    [vwNodeTypeMetric].[metricValue2Label] AS [metricValue2Label], 
+    [vwNodeTypeMetric].[metricValue3Label] AS [metricValue3Label], 
+    [vwNodeTypeMetric].[pollingInterval] AS [pollingInterval], 
+    [vwNodeTypeMetric].[dateCreated] AS [dateCreated], 
+    [vwNodeTypeMetric].[dateUpdated] AS [dateUpdated], 
+    [vwNodeTypeMetric].[metricSourceInfo] AS [metricSourceInfo], 
+    [vwNodeTypeMetric].[metricUnits] AS [metricUnits], 
+    [vwNodeTypeMetric].[rollUpAggregateConfig] AS [rollUpAggregateConfig], 
+    [vwNodeTypeMetric].[isCalculatedMetric] AS [isCalculatedMetric], 
+    [vwNodeTypeMetric].[displayName] AS [displayName], 
+    [vwNodeTypeMetric].[config] AS [config], 
+    [vwNodeTypeMetric].[preFillValueConfig] AS [preFillValueConfig]
+    FROM [Aggregation].[vwNodeTypeMetric] AS [vwNodeTypeMetric]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwRNodeTypeMetric" EntityType="Self.vwRNodeTypeMetric" store:Type="Views" store:Schema="Aggregation">
+            <DefiningQuery>SELECT 
+    [vwRNodeTypeMetric].[id] AS [id], 
+    [vwRNodeTypeMetric].[nodeTypeId] AS [nodeTypeId], 
+    [vwRNodeTypeMetric].[NodeType_Description] AS [NodeType_Description], 
+    [vwRNodeTypeMetric].[metricKey] AS [metricKey], 
+    [vwRNodeTypeMetric].[MetricKey_Description] AS [MetricKey_Description], 
+    [vwRNodeTypeMetric].[metricValueType] AS [metricValueType], 
+    [vwRNodeTypeMetric].[dateCreated] AS [dateCreated], 
+    [vwRNodeTypeMetric].[dateUpdated] AS [dateUpdated], 
+    [vwRNodeTypeMetric].[defaultValue] AS [defaultValue], 
+    [vwRNodeTypeMetric].[usePreviousValue] AS [usePreviousValue]
+    FROM [Aggregation].[vwRNodeTypeMetric] AS [vwRNodeTypeMetric]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_tbActivityLogger_ConfigurationId" Association="Self.fk_tbActivityLogger_ConfigurationId">
+            <End Role="tbConfiguration" EntitySet="tbConfiguration" />
+            <End Role="tbActivityLogger" EntitySet="tbActivityLogger" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbActivityLogger_TypeId" Association="Self.fk_tbActivityLogger_TypeId">
+            <End Role="tbActivity" EntitySet="tbActivity" />
+            <End Role="tbActivityLogger" EntitySet="tbActivityLogger" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbActivityLogger_UserId" Association="Self.fk_tbActivityLogger_UserId">
+            <End Role="tbUser" EntitySet="tbUser" />
+            <End Role="tbActivityLogger" EntitySet="tbActivityLogger" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_interval" Association="Self.fk_tbJob_interval">
+            <End Role="tbInterval" EntitySet="tbInterval" />
+            <End Role="tbJob" EntitySet="tbJob" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_JobType" Association="Self.fk_tbJob_JobType">
+            <End Role="tbJobType" EntitySet="tbJobType" />
+            <End Role="tbJob" EntitySet="tbJob" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_LogActivity" Association="Self.fk_tbJob_LogActivity">
+            <End Role="tbJob" EntitySet="tbJob" />
+            <End Role="tbLogActivity" EntitySet="tbLogActivity" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_logs" Association="Self.fk_tbJob_logs">
+            <End Role="tbJob" EntitySet="tbJob" />
+            <End Role="tbLogError" EntitySet="tbLogError" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_priority" Association="Self.fk_tbJob_priority">
+            <End Role="tbPriority" EntitySet="tbPriority" />
+            <End Role="tbJob" EntitySet="tbJob" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_status" Association="Self.fk_tbJob_status">
+            <End Role="tbStatus" EntitySet="tbStatus" />
+            <End Role="tbJob" EntitySet="tbJob" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="igenmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="igenmsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="rtbNodes" EntityType="igenmsModel.rtbNode" />
+          <EntitySet Name="rtbNodeMetrics" EntityType="igenmsModel.rtbNodeMetric" />
+          <EntitySet Name="rtbNodeParents" EntityType="igenmsModel.rtbNodeParent" />
+          <EntitySet Name="rtbNodeTypes" EntityType="igenmsModel.rtbNodeType" />
+          <EntitySet Name="rtbNodeTypeMetrics" EntityType="igenmsModel.rtbNodeTypeMetric" />
+          <EntitySet Name="tbActivities" EntityType="igenmsModel.tbActivity" />
+          <EntitySet Name="tbActivityLoggers" EntityType="igenmsModel.tbActivityLogger" />
+          <EntitySet Name="tbConfigurations" EntityType="igenmsModel.tbConfiguration" />
+          <EntitySet Name="tbConfigurationByDates" EntityType="igenmsModel.tbConfigurationByDate" />
+          <EntitySet Name="tbIntervals" EntityType="igenmsModel.tbInterval" />
+          <EntitySet Name="tbJobs" EntityType="igenmsModel.tbJob" />
+          <EntitySet Name="tbJobTypes" EntityType="igenmsModel.tbJobType" />
+          <EntitySet Name="tbLogActivities" EntityType="igenmsModel.tbLogActivity" />
+          <EntitySet Name="tbLogErrors" EntityType="igenmsModel.tbLogError" />
+          <EntitySet Name="tbNodeStatusConfigs" EntityType="igenmsModel.tbNodeStatusConfig" />
+          <EntitySet Name="tbNodeStatusTemps" EntityType="igenmsModel.tbNodeStatusTemp" />
+          <EntitySet Name="tbObservations" EntityType="igenmsModel.tbObservation" />
+          <EntitySet Name="tbObservationsTemplates" EntityType="igenmsModel.tbObservationsTemplate" />
+          <EntitySet Name="tbPriorities" EntityType="igenmsModel.tbPriority" />
+          <EntitySet Name="tbRawDatas" EntityType="igenmsModel.tbRawData" />
+          <EntitySet Name="tbRawDataDailies" EntityType="igenmsModel.tbRawDataDaily" />
+          <EntitySet Name="tbStatus" EntityType="igenmsModel.tbStatu" />
+          <EntitySet Name="tbUsers" EntityType="igenmsModel.tbUser" />
+          <EntitySet Name="tbWebServers" EntityType="igenmsModel.tbWebServer" />
+          <EntitySet Name="tbNodeMetricValue_5Minute" EntityType="igenmsModel.tbNodeMetricValue_5Minute" />
+          <EntitySet Name="tbNodeMetricValue_Day" EntityType="igenmsModel.tbNodeMetricValue_Day" />
+          <EntitySet Name="tbNodeMetricValue_Hour" EntityType="igenmsModel.tbNodeMetricValue_Hour" />
+          <EntitySet Name="tbNodeStatus" EntityType="igenmsModel.tbNodeStatu" />
+          <EntitySet Name="vwGetAggregatedBases" EntityType="igenmsModel.vwGetAggregatedBase" />
+          <EntitySet Name="vwGetAggregatedMedians" EntityType="igenmsModel.vwGetAggregatedMedian" />
+          <EntitySet Name="vwGetAggregatedPercentiles" EntityType="igenmsModel.vwGetAggregatedPercentile" />
+          <EntitySet Name="vwGetAggregatedStdDevs" EntityType="igenmsModel.vwGetAggregatedStdDev" />
+          <EntitySet Name="vwGetChildNodeStatus" EntityType="igenmsModel.vwGetChildNodeStatu" />
+          <EntitySet Name="vwGetJobs" EntityType="igenmsModel.vwGetJob" />
+          <EntitySet Name="vwGetPreviousNodeStatusValues" EntityType="igenmsModel.vwGetPreviousNodeStatusValue" />
+          <EntitySet Name="vwNodes" EntityType="igenmsModel.vwNode" />
+          <EntitySet Name="vwNodeMetrics" EntityType="igenmsModel.vwNodeMetric" />
+          <EntitySet Name="vwNodeMetricValues" EntityType="igenmsModel.vwNodeMetricValue" />
+          <EntitySet Name="vwNodeParents" EntityType="igenmsModel.vwNodeParent" />
+          <EntitySet Name="vwNodeTypes" EntityType="igenmsModel.vwNodeType" />
+          <EntitySet Name="vwNodeTypeMetrics" EntityType="igenmsModel.vwNodeTypeMetric" />
+          <EntitySet Name="vwRNodeTypeMetrics" EntityType="igenmsModel.vwRNodeTypeMetric" />
+          <AssociationSet Name="fk_tbActivityLogger_TypeId" Association="igenmsModel.fk_tbActivityLogger_TypeId">
+            <End Role="tbActivity" EntitySet="tbActivities" />
+            <End Role="tbActivityLogger" EntitySet="tbActivityLoggers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbActivityLogger_ConfigurationId" Association="igenmsModel.fk_tbActivityLogger_ConfigurationId">
+            <End Role="tbConfiguration" EntitySet="tbConfigurations" />
+            <End Role="tbActivityLogger" EntitySet="tbActivityLoggers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbActivityLogger_UserId" Association="igenmsModel.fk_tbActivityLogger_UserId">
+            <End Role="tbUser" EntitySet="tbUsers" />
+            <End Role="tbActivityLogger" EntitySet="tbActivityLoggers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_interval" Association="igenmsModel.fk_tbJob_interval">
+            <End Role="tbInterval" EntitySet="tbIntervals" />
+            <End Role="tbJob" EntitySet="tbJobs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_JobType" Association="igenmsModel.fk_tbJob_JobType">
+            <End Role="tbJobType" EntitySet="tbJobTypes" />
+            <End Role="tbJob" EntitySet="tbJobs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_LogActivity" Association="igenmsModel.fk_tbJob_LogActivity">
+            <End Role="tbJob" EntitySet="tbJobs" />
+            <End Role="tbLogActivity" EntitySet="tbLogActivities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_logs" Association="igenmsModel.fk_tbJob_logs">
+            <End Role="tbJob" EntitySet="tbJobs" />
+            <End Role="tbLogError" EntitySet="tbLogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_priority" Association="igenmsModel.fk_tbJob_priority">
+            <End Role="tbPriority" EntitySet="tbPriorities" />
+            <End Role="tbJob" EntitySet="tbJobs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tbJob_status" Association="igenmsModel.fk_tbJob_status">
+            <End Role="tbStatu" EntitySet="tbStatus" />
+            <End Role="tbJob" EntitySet="tbJobs" />
+          </AssociationSet>
+          <FunctionImport Name="fnGetMetricKeys" IsComposable="true" ReturnType="Collection(String)">
+            <Parameter Name="nodeTypeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="fnGetStats" IsComposable="true" ReturnType="Collection(igenmsModel.fnGetStats_Result)" />
+          <FunctionImport Name="fnStringList2Table" IsComposable="true" ReturnType="Collection(Int32)">
+            <Parameter Name="List" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spCleanRefTables" />
+          <FunctionImport Name="spCleanUpDaily">
+            <Parameter Name="jobId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="spCleanUpHourly">
+            <Parameter Name="jobId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="spMergeRefTables" />
+          <FunctionImport Name="spPopulate5Minute">
+            <Parameter Name="jobId" Mode="In" Type="Int64" />
+            <Parameter Name="fromTimeStamp" Mode="In" Type="DateTime" />
+            <Parameter Name="toTimeStamp" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spPopulateDaily">
+            <Parameter Name="fromTimeStamp" Mode="In" Type="DateTime" />
+            <Parameter Name="toTimeStamp" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spPopulateHourly">
+            <Parameter Name="fromTimeStamp" Mode="In" Type="DateTime" />
+            <Parameter Name="toTimeStamp" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spPopulateNodeStatus">
+            <Parameter Name="jobId" Mode="In" Type="Int64" />
+            <Parameter Name="fromTimeStamp" Mode="In" Type="DateTime" />
+            <Parameter Name="toTimeStamp" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="spPopulateStaging">
+            <Parameter Name="jobId" Mode="In" Type="Int64" />
+            <Parameter Name="fromTimeStamp" Mode="In" Type="DateTime" />
+            <Parameter Name="toTimeStamp" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="rtbNode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="activationDate" Type="DateTime" Precision="3" />
+          <Property Name="deactivationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="rtbNodeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeMetricId" Type="Int32" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="rtbNodeParent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="parentnodeId" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="rtbNodeType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="defaultValue" Type="Int32" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="rtbNodeTypeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="rollUpAggregateConfig" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="preFillValueConfig" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="defaultValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usePreviousValue" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbActivity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbActivityLoggers" Relationship="igenmsModel.fk_tbActivityLogger_TypeId" FromRole="tbActivity" ToRole="tbActivityLogger" />
+        </EntityType>
+        <EntityType Name="tbActivityLogger">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="activityId" Type="Int32" Nullable="false" />
+          <Property Name="configurationId" Type="Int32" />
+          <Property Name="oldValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="newValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tbActivity" Relationship="igenmsModel.fk_tbActivityLogger_TypeId" FromRole="tbActivityLogger" ToRole="tbActivity" />
+          <NavigationProperty Name="tbConfiguration" Relationship="igenmsModel.fk_tbActivityLogger_ConfigurationId" FromRole="tbActivityLogger" ToRole="tbConfiguration" />
+          <NavigationProperty Name="tbUser" Relationship="igenmsModel.fk_tbActivityLogger_UserId" FromRole="tbActivityLogger" ToRole="tbUser" />
+        </EntityType>
+        <EntityType Name="tbConfiguration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="key" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="readOnly" Type="Boolean" Nullable="false" />
+          <Property Name="immediate" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbActivityLoggers" Relationship="igenmsModel.fk_tbActivityLogger_ConfigurationId" FromRole="tbConfiguration" ToRole="tbActivityLogger" />
+        </EntityType>
+        <EntityType Name="tbConfigurationByDate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aggregationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Refresh_Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Refresh_NumberOfDays" Type="Int32" Nullable="false" />
+          <Property Name="Refresh_Interval" Type="Int32" Nullable="false" />
+          <Property Name="Job_StartTimeDelay" Type="Int32" Nullable="false" />
+          <Property Name="createdDateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbInterval">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbJobs" Relationship="igenmsModel.fk_tbJob_interval" FromRole="tbInterval" ToRole="tbJob" />
+        </EntityType>
+        <EntityType Name="tbJob">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jobType" Type="Int32" Nullable="false" />
+          <Property Name="computerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="interval" Type="Int32" />
+          <Property Name="priority" Type="Int32" Nullable="false" />
+          <Property Name="startDateTime" Type="DateTime" Precision="3" />
+          <Property Name="endDateTime" Type="DateTime" Precision="3" />
+          <Property Name="startAfterDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="processId" Type="Int32" />
+          <Property Name="aggregationStartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="aggregationEndDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="parentJobId" Type="Int64" />
+          <Property Name="processed" Type="Int32" />
+          <Property Name="isRecovery" Type="Boolean" Nullable="false" />
+          <Property Name="createdBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="exitCode" Type="Int32" />
+          <NavigationProperty Name="tbInterval" Relationship="igenmsModel.fk_tbJob_interval" FromRole="tbJob" ToRole="tbInterval" />
+          <NavigationProperty Name="tbJobType" Relationship="igenmsModel.fk_tbJob_JobType" FromRole="tbJob" ToRole="tbJobType" />
+          <NavigationProperty Name="tbLogActivities" Relationship="igenmsModel.fk_tbJob_LogActivity" FromRole="tbJob" ToRole="tbLogActivity" />
+          <NavigationProperty Name="tbLogErrors" Relationship="igenmsModel.fk_tbJob_logs" FromRole="tbJob" ToRole="tbLogError" />
+          <NavigationProperty Name="tbPriority" Relationship="igenmsModel.fk_tbJob_priority" FromRole="tbJob" ToRole="tbPriority" />
+          <NavigationProperty Name="tbStatu" Relationship="igenmsModel.fk_tbJob_status" FromRole="tbJob" ToRole="tbStatu" />
+        </EntityType>
+        <EntityType Name="tbJobType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbJobs" Relationship="igenmsModel.fk_tbJob_JobType" FromRole="tbJobType" ToRole="tbJob" />
+        </EntityType>
+        <EntityType Name="tbLogActivity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jobId" Type="Int64" Nullable="false" />
+          <Property Name="methodName" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Precision="3" />
+          <Property Name="elapsedTime" Type="Int64" Nullable="false" />
+          <Property Name="parameters" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbJob" Relationship="igenmsModel.fk_tbJob_LogActivity" FromRole="tbLogActivity" ToRole="tbJob" />
+        </EntityType>
+        <EntityType Name="tbLogError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="jobId" Type="Int64" Nullable="false" />
+          <Property Name="methodName" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="exceptionMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="innerException" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="returnCode" Type="Int32" />
+          <Property Name="elapsedTime" Type="Int64" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Precision="3" />
+          <Property Name="stackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="parameters" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbJob" Relationship="igenmsModel.fk_tbJob_logs" FromRole="tbLogError" ToRole="tbJob" />
+        </EntityType>
+        <EntityType Name="tbNodeStatusConfig">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="include" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbNodeStatusTemp">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+          </Key>
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Boolean" Nullable="false" />
+          <Property Name="average" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbObservation">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="observationid" Type="Int64" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeMetricId" Type="Int32" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="average" Type="Double" />
+          <Property Name="median" Type="Double" />
+          <Property Name="mode" Type="Double" />
+          <Property Name="stdDev" Type="Double" />
+          <Property Name="C95pct" Type="Double" />
+          <Property Name="sum" Type="Double" />
+          <Property Name="min" Type="Double" />
+          <Property Name="max" Type="Double" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="maxCount" Type="Int32" />
+          <Property Name="first" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="last" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="usePreviousValue" Type="Boolean" Nullable="false" />
+          <Property Name="hasObservation" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbObservationsTemplate">
+          <Key>
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbPriority">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbJobs" Relationship="igenmsModel.fk_tbJob_priority" FromRole="tbPriority" ToRole="tbJob" />
+        </EntityType>
+        <EntityType Name="tbRawData">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="reportingtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="isbackFilled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbRawDataDaily">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="reportingtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="isbackFilled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tbStatu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbJobs" Relationship="igenmsModel.fk_tbJob_status" FromRole="tbStatu" ToRole="tbJob" />
+        </EntityType>
+        <EntityType Name="tbUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="hasAdminAccess" Type="Boolean" Nullable="false" />
+          <Property Name="hasAccessToConfiguration" Type="Boolean" Nullable="false" />
+          <Property Name="hasAccessToQueue" Type="Boolean" Nullable="false" />
+          <Property Name="hasAccessToRefreshJob" Type="Boolean" Nullable="false" />
+          <Property Name="hasAccessToUpdateClock" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbActivityLoggers" Relationship="igenmsModel.fk_tbActivityLogger_UserId" FromRole="tbUser" ToRole="tbActivityLogger" />
+        </EntityType>
+        <EntityType Name="tbWebServer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="serverName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="serverIP" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="InstanceName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbNodeMetricValue_5Minute">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeMetricId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="usePreviousValue" Type="Boolean" Nullable="false" />
+          <Property Name="originalStatus" Type="Boolean" Nullable="false" />
+          <Property Name="updatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="average" Type="Double" />
+          <Property Name="median" Type="Double" />
+          <Property Name="mode" Type="Double" />
+          <Property Name="stdDev" Type="Double" />
+          <Property Name="C95pct" Type="Double" />
+          <Property Name="sum" Type="Double" />
+          <Property Name="min" Type="Double" />
+          <Property Name="max" Type="Double" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="maxCount" Type="Int32" />
+          <Property Name="first" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="last" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbNodeMetricValue_Day">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeMetricId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="valueType" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="epochTimestamp" Type="Int64" />
+          <Property Name="average" Type="Double" />
+          <Property Name="median" Type="Double" />
+          <Property Name="mode" Type="Double" />
+          <Property Name="stdDev" Type="Double" />
+          <Property Name="C95pct" Type="Double" />
+          <Property Name="sum" Type="Double" />
+          <Property Name="min" Type="Double" />
+          <Property Name="max" Type="Double" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="maxCount" Type="Int32" />
+          <Property Name="first" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="last" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbNodeMetricValue_Hour">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeMetricId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="value" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="valueType" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="epochTimestamp" Type="Int64" />
+          <Property Name="average" Type="Double" />
+          <Property Name="median" Type="Double" />
+          <Property Name="mode" Type="Double" />
+          <Property Name="stdDev" Type="Double" />
+          <Property Name="C95pct" Type="Double" />
+          <Property Name="sum" Type="Double" />
+          <Property Name="min" Type="Double" />
+          <Property Name="max" Type="Double" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="maxCount" Type="Int32" />
+          <Property Name="first" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="last" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbNodeStatu">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="timestamp" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="originalStatus" Type="Boolean" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vwGetAggregatedBase">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="nodeid" />
+          </Key>
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nodeid" Type="Int32" Nullable="false" />
+          <Property Name="reportingtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="average" Type="Double" />
+          <Property Name="sum" Type="Double" />
+          <Property Name="min" Type="Double" />
+          <Property Name="max" Type="Double" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="first" Type="Int32" />
+          <Property Name="last" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vwGetAggregatedMedian">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="reportingtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="median" Type="Double" />
+        </EntityType>
+        <EntityType Name="vwGetAggregatedPercentile">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="reportingtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="percentile" Type="Double" />
+        </EntityType>
+        <EntityType Name="vwGetAggregatedStdDev">
+          <Key>
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="metricKey" />
+          </Key>
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="reportingtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="stdDev" Type="Double" />
+        </EntityType>
+        <EntityType Name="vwGetChildNodeStatu">
+          <Key>
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="timestamp" />
+            <PropertyRef Name="status" />
+          </Key>
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwGetJob">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="JobType" />
+            <PropertyRef Name="StatusId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Interval" />
+            <PropertyRef Name="PriorityId" />
+            <PropertyRef Name="Priority" />
+            <PropertyRef Name="startAfterDateTime" />
+            <PropertyRef Name="aggregationStartDateTime" />
+            <PropertyRef Name="aggregationEndDateTime" />
+            <PropertyRef Name="createdDateTime" />
+            <PropertyRef Name="isRecovery" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="JobType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="computerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IntervalId" Type="Int32" />
+          <Property Name="Interval" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PriorityId" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="startDateTime" Type="DateTime" Precision="3" />
+          <Property Name="endDateTime" Type="DateTime" Precision="3" />
+          <Property Name="startAfterDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="processId" Type="Int32" />
+          <Property Name="aggregationStartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="aggregationEndDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="processed" Type="Int32" />
+          <Property Name="isRecovery" Type="Boolean" Nullable="false" />
+          <Property Name="createdBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="exitCode" Type="Int32" />
+          <Property Name="listOfJobs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwGetPreviousNodeStatusValue">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="defaultvalue" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="elapsedTime" Type="Int32" />
+          <Property Name="defaultvalue" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwNode">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="connectorId" />
+            <PropertyRef Name="pollerId" />
+            <PropertyRef Name="useMetricTemplate" />
+            <PropertyRef Name="pollingInterval" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="connectorId" Type="Int32" Nullable="false" />
+          <Property Name="connectorCreds" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="sourceInfo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="pollerId" Type="Int32" Nullable="false" />
+          <Property Name="useMetricTemplate" Type="Boolean" Nullable="false" />
+          <Property Name="nodeTypeTemplateId" Type="Int32" />
+          <Property Name="pollingInterval" Type="Int32" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="pollPolicy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lastPollDate" Type="DateTime" Precision="3" />
+          <Property Name="nextPollDate" Type="DateTime" Precision="3" />
+          <Property Name="nodeData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="processorName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="activationDate" Type="DateTime" Precision="3" />
+          <Property Name="deactivationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="vwNodeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="pollingInterval" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sampleValue" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="metricValue1Label" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="metricValue2Label" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="metricValue3Label" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="pollingInterval" Type="Int32" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="metricSourceInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="metricUnits" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nodeMetricData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwNodeMetricValue">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="nodeMetricId" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="timestamp" />
+            <PropertyRef Name="value" />
+            <PropertyRef Name="lastPolledTimestamp" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="nodeMetricId" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="value" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="metricvalue1" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="metricvalue2" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="metricvalue3" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="epochTimestamp" Type="Int64" />
+          <Property Name="lastPolledTimestamp" Type="Int64" Nullable="false" />
+          <Property Name="backFillMetricValueID" Type="Int64" />
+          <Property Name="isbackFilled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="vwNodeParent">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeId" />
+            <PropertyRef Name="parentnodeId" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nodeId" Type="Int32" Nullable="false" />
+          <Property Name="parentnodeId" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vwNodeType">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="active" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwNodeTypeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="pollingInterval" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sampleValue" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="metricValue1Label" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="metricValue2Label" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="metricValue3Label" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="pollingInterval" Type="Int32" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="metricSourceInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="metricUnits" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rollUpAggregateConfig" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isCalculatedMetric" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="displayName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="preFillValueConfig" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwRNodeTypeMetric">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nodeTypeId" />
+            <PropertyRef Name="NodeType_Description" />
+            <PropertyRef Name="metricKey" />
+            <PropertyRef Name="MetricKey_Description" />
+            <PropertyRef Name="metricValueType" />
+            <PropertyRef Name="dateCreated" />
+            <PropertyRef Name="dateUpdated" />
+            <PropertyRef Name="defaultValue" />
+            <PropertyRef Name="usePreviousValue" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nodeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="NodeType_Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MetricKey_Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="metricValueType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="defaultValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usePreviousValue" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_tbActivityLogger_TypeId">
+          <End Type="igenmsModel.tbActivity" Role="tbActivity" Multiplicity="1" />
+          <End Type="igenmsModel.tbActivityLogger" Role="tbActivityLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActivity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbActivityLogger">
+              <PropertyRef Name="activityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbActivityLogger_ConfigurationId">
+          <End Type="igenmsModel.tbConfiguration" Role="tbConfiguration" Multiplicity="0..1" />
+          <End Type="igenmsModel.tbActivityLogger" Role="tbActivityLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbConfiguration">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbActivityLogger">
+              <PropertyRef Name="configurationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbActivityLogger_UserId">
+          <End Type="igenmsModel.tbUser" Role="tbUser" Multiplicity="1" />
+          <End Type="igenmsModel.tbActivityLogger" Role="tbActivityLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbActivityLogger">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_interval">
+          <End Type="igenmsModel.tbInterval" Role="tbInterval" Multiplicity="0..1" />
+          <End Type="igenmsModel.tbJob" Role="tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInterval">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="interval" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_JobType">
+          <End Type="igenmsModel.tbJobType" Role="tbJobType" Multiplicity="1" />
+          <End Type="igenmsModel.tbJob" Role="tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbJobType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="jobType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_LogActivity">
+          <End Type="igenmsModel.tbJob" Role="tbJob" Multiplicity="1" />
+          <End Type="igenmsModel.tbLogActivity" Role="tbLogActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbJob">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbLogActivity">
+              <PropertyRef Name="jobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_logs">
+          <End Type="igenmsModel.tbJob" Role="tbJob" Multiplicity="1" />
+          <End Type="igenmsModel.tbLogError" Role="tbLogError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbJob">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbLogError">
+              <PropertyRef Name="jobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_priority">
+          <End Type="igenmsModel.tbPriority" Role="tbPriority" Multiplicity="1" />
+          <End Type="igenmsModel.tbJob" Role="tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPriority">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="priority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tbJob_status">
+          <End Type="igenmsModel.tbStatu" Role="tbStatu" Multiplicity="1" />
+          <End Type="igenmsModel.tbJob" Role="tbJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStatu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbJob">
+              <PropertyRef Name="status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="fnGetStats_Result">
+          <Property Type="Int32" Name="AverageProcessingTime_HourlyJob" Nullable="true" />
+          <Property Type="Int32" Name="AverageProcessingTime_DailyJob" Nullable="true" />
+          <Property Type="Int32" Name="CommandTimeout" Nullable="true" />
+          <Property Type="Int32" Name="Job_StartTimeDelay" Nullable="true" />
+          <Property Type="DateTime" Name="Job_SuspendProcessingAfter" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="JobProcessingHasIssues" Nullable="true" />
+          <Property Type="Boolean" Name="JobProcessingIsSuspended" Nullable="true" />
+          <Property Type="DateTime" Name="LastErrJobAggregationDateTime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="LastErrJobElapsedtime" Nullable="true" />
+          <Property Type="Int32" Name="LastErrJobId" Nullable="true" />
+          <Property Type="String" Name="LastErrJobInterval" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="LastErrJobStartDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastErrJobEndDateTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LastErrJobStatus" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="LastJobAggregationDateTime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="LastJobElapsedtime" Nullable="true" />
+          <Property Type="Int32" Name="LastJobId" Nullable="true" />
+          <Property Type="String" Name="LastJobInterval" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="LastJobStartDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastJobEndDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastHourlyJob_Scheduled_DateTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LastJobStatus" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="NextJobAggregationDateTime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="NextJobId" Nullable="true" />
+          <Property Type="String" Name="NextJobInterval" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="NextJobStartAfterDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="NextJobStartDateTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NextJobStatus" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="NextJobWillStartInMinutes" Nullable="true" />
+          <Property Type="Int32" Name="NumberOfDaysForStats" Nullable="true" />
+          <Property Type="Int32" Name="NumberOfRefresh" Nullable="true" />
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Refresh_Enabled" Nullable="true" />
+          <Property Type="Int32" Name="Refresh_Interval" Nullable="true" />
+          <Property Type="Int32" Name="Retention_ActivityLog_NumberOfHours" Nullable="true" />
+          <Property Type="Int32" Name="SP_CommandTimeout" Nullable="true" />
+          <Property Type="DateTime" Name="SuspendAfter" Nullable="true" Precision="23" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="igenmsModelStoreContainer" CdmEntityContainer="igenmsEntities">
+          <EntitySetMapping Name="rtbNodes">
+            <EntityTypeMapping TypeName="igenmsModel.rtbNode">
+              <MappingFragment StoreEntitySet="rtbNode">
+                <ScalarProperty Name="deactivationDate" ColumnName="deactivationDate" />
+                <ScalarProperty Name="activationDate" ColumnName="activationDate" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rtbNodeMetrics">
+            <EntityTypeMapping TypeName="igenmsModel.rtbNodeMetric">
+              <MappingFragment StoreEntitySet="rtbNodeMetric">
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeMetricId" ColumnName="nodeMetricId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rtbNodeParents">
+            <EntityTypeMapping TypeName="igenmsModel.rtbNodeParent">
+              <MappingFragment StoreEntitySet="rtbNodeParent">
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="parentnodeId" ColumnName="parentnodeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rtbNodeTypes">
+            <EntityTypeMapping TypeName="igenmsModel.rtbNodeType">
+              <MappingFragment StoreEntitySet="rtbNodeType">
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="defaultValue" ColumnName="defaultValue" />
+                <ScalarProperty Name="config" ColumnName="config" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rtbNodeTypeMetrics">
+            <EntityTypeMapping TypeName="igenmsModel.rtbNodeTypeMetric">
+              <MappingFragment StoreEntitySet="rtbNodeTypeMetric">
+                <ScalarProperty Name="usePreviousValue" ColumnName="usePreviousValue" />
+                <ScalarProperty Name="defaultValue" ColumnName="defaultValue" />
+                <ScalarProperty Name="preFillValueConfig" ColumnName="preFillValueConfig" />
+                <ScalarProperty Name="rollUpAggregateConfig" ColumnName="rollUpAggregateConfig" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActivities">
+            <EntityTypeMapping TypeName="igenmsModel.tbActivity">
+              <MappingFragment StoreEntitySet="tbActivity">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActivityLoggers">
+            <EntityTypeMapping TypeName="igenmsModel.tbActivityLogger">
+              <MappingFragment StoreEntitySet="tbActivityLogger">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="newValue" ColumnName="newValue" />
+                <ScalarProperty Name="oldValue" ColumnName="oldValue" />
+                <ScalarProperty Name="configurationId" ColumnName="configurationId" />
+                <ScalarProperty Name="activityId" ColumnName="activityId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbConfigurations">
+            <EntityTypeMapping TypeName="igenmsModel.tbConfiguration">
+              <MappingFragment StoreEntitySet="tbConfiguration">
+                <ScalarProperty Name="immediate" ColumnName="immediate" />
+                <ScalarProperty Name="readOnly" ColumnName="readOnly" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbConfigurationByDates">
+            <EntityTypeMapping TypeName="igenmsModel.tbConfigurationByDate">
+              <MappingFragment StoreEntitySet="tbConfigurationByDate">
+                <ScalarProperty Name="createdDateTime" ColumnName="createdDateTime" />
+                <ScalarProperty Name="Job_StartTimeDelay" ColumnName="Job_StartTimeDelay" />
+                <ScalarProperty Name="Refresh_Interval" ColumnName="Refresh_Interval" />
+                <ScalarProperty Name="Refresh_NumberOfDays" ColumnName="Refresh_NumberOfDays" />
+                <ScalarProperty Name="Refresh_Enabled" ColumnName="Refresh_Enabled" />
+                <ScalarProperty Name="aggregationDate" ColumnName="aggregationDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbIntervals">
+            <EntityTypeMapping TypeName="igenmsModel.tbInterval">
+              <MappingFragment StoreEntitySet="tbInterval">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbJobs">
+            <EntityTypeMapping TypeName="igenmsModel.tbJob">
+              <MappingFragment StoreEntitySet="tbJob">
+                <ScalarProperty Name="exitCode" ColumnName="exitCode" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="isRecovery" ColumnName="isRecovery" />
+                <ScalarProperty Name="processed" ColumnName="processed" />
+                <ScalarProperty Name="parentJobId" ColumnName="parentJobId" />
+                <ScalarProperty Name="createdDateTime" ColumnName="createdDateTime" />
+                <ScalarProperty Name="aggregationEndDateTime" ColumnName="aggregationEndDateTime" />
+                <ScalarProperty Name="aggregationStartDateTime" ColumnName="aggregationStartDateTime" />
+                <ScalarProperty Name="processId" ColumnName="processId" />
+                <ScalarProperty Name="startAfterDateTime" ColumnName="startAfterDateTime" />
+                <ScalarProperty Name="endDateTime" ColumnName="endDateTime" />
+                <ScalarProperty Name="startDateTime" ColumnName="startDateTime" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="interval" ColumnName="interval" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="computerName" ColumnName="computerName" />
+                <ScalarProperty Name="jobType" ColumnName="jobType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbJobTypes">
+            <EntityTypeMapping TypeName="igenmsModel.tbJobType">
+              <MappingFragment StoreEntitySet="tbJobType">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbLogActivities">
+            <EntityTypeMapping TypeName="igenmsModel.tbLogActivity">
+              <MappingFragment StoreEntitySet="tbLogActivity">
+                <ScalarProperty Name="parameters" ColumnName="parameters" />
+                <ScalarProperty Name="elapsedTime" ColumnName="elapsedTime" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="methodName" ColumnName="methodName" />
+                <ScalarProperty Name="jobId" ColumnName="jobId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbLogErrors">
+            <EntityTypeMapping TypeName="igenmsModel.tbLogError">
+              <MappingFragment StoreEntitySet="tbLogError">
+                <ScalarProperty Name="parameters" ColumnName="parameters" />
+                <ScalarProperty Name="stackTrace" ColumnName="stackTrace" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="elapsedTime" ColumnName="elapsedTime" />
+                <ScalarProperty Name="returnCode" ColumnName="returnCode" />
+                <ScalarProperty Name="innerException" ColumnName="innerException" />
+                <ScalarProperty Name="exceptionMessage" ColumnName="exceptionMessage" />
+                <ScalarProperty Name="methodName" ColumnName="methodName" />
+                <ScalarProperty Name="jobId" ColumnName="jobId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbNodeStatusConfigs">
+            <EntityTypeMapping TypeName="igenmsModel.tbNodeStatusConfig">
+              <MappingFragment StoreEntitySet="tbNodeStatusConfig">
+                <ScalarProperty Name="include" ColumnName="include" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbNodeStatusTemps">
+            <EntityTypeMapping TypeName="igenmsModel.tbNodeStatusTemp">
+              <MappingFragment StoreEntitySet="tbNodeStatusTemp">
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbObservations">
+            <EntityTypeMapping TypeName="igenmsModel.tbObservation">
+              <MappingFragment StoreEntitySet="tbObservations">
+                <ScalarProperty Name="hasObservation" ColumnName="hasObservation" />
+                <ScalarProperty Name="usePreviousValue" ColumnName="usePreviousValue" />
+                <ScalarProperty Name="last" ColumnName="last" />
+                <ScalarProperty Name="first" ColumnName="first" />
+                <ScalarProperty Name="maxCount" ColumnName="maxCount" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="C95pct" ColumnName="95pct" />
+                <ScalarProperty Name="stdDev" ColumnName="stdDev" />
+                <ScalarProperty Name="mode" ColumnName="mode" />
+                <ScalarProperty Name="median" ColumnName="median" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeMetricId" ColumnName="nodeMetricId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="observationid" ColumnName="observationid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbObservationsTemplates">
+            <EntityTypeMapping TypeName="igenmsModel.tbObservationsTemplate">
+              <MappingFragment StoreEntitySet="tbObservationsTemplate">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPriorities">
+            <EntityTypeMapping TypeName="igenmsModel.tbPriority">
+              <MappingFragment StoreEntitySet="tbPriority">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbRawDatas">
+            <EntityTypeMapping TypeName="igenmsModel.tbRawData">
+              <MappingFragment StoreEntitySet="tbRawData">
+                <ScalarProperty Name="isbackFilled" ColumnName="isbackFilled" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="reportingtimestamp" ColumnName="reportingtimestamp" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbRawDataDailies">
+            <EntityTypeMapping TypeName="igenmsModel.tbRawDataDaily">
+              <MappingFragment StoreEntitySet="tbRawDataDaily">
+                <ScalarProperty Name="isbackFilled" ColumnName="isbackFilled" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="reportingtimestamp" ColumnName="reportingtimestamp" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbStatus">
+            <EntityTypeMapping TypeName="igenmsModel.tbStatu">
+              <MappingFragment StoreEntitySet="tbStatus">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUsers">
+            <EntityTypeMapping TypeName="igenmsModel.tbUser">
+              <MappingFragment StoreEntitySet="tbUser">
+                <ScalarProperty Name="hasAccessToUpdateClock" ColumnName="hasAccessToUpdateClock" />
+                <ScalarProperty Name="hasAccessToRefreshJob" ColumnName="hasAccessToRefreshJob" />
+                <ScalarProperty Name="hasAccessToQueue" ColumnName="hasAccessToQueue" />
+                <ScalarProperty Name="hasAccessToConfiguration" ColumnName="hasAccessToConfiguration" />
+                <ScalarProperty Name="hasAdminAccess" ColumnName="hasAdminAccess" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbWebServers">
+            <EntityTypeMapping TypeName="igenmsModel.tbWebServer">
+              <MappingFragment StoreEntitySet="tbWebServer">
+                <ScalarProperty Name="InstanceName" ColumnName="InstanceName" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="serverIP" ColumnName="serverIP" />
+                <ScalarProperty Name="serverName" ColumnName="serverName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbNodeMetricValue_5Minute">
+            <EntityTypeMapping TypeName="igenmsModel.tbNodeMetricValue_5Minute">
+              <MappingFragment StoreEntitySet="tbNodeMetricValue_5Minute">
+                <ScalarProperty Name="last" ColumnName="last" />
+                <ScalarProperty Name="first" ColumnName="first" />
+                <ScalarProperty Name="maxCount" ColumnName="maxCount" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="C95pct" ColumnName="95pct" />
+                <ScalarProperty Name="stdDev" ColumnName="stdDev" />
+                <ScalarProperty Name="mode" ColumnName="mode" />
+                <ScalarProperty Name="median" ColumnName="median" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="originalStatus" ColumnName="originalStatus" />
+                <ScalarProperty Name="usePreviousValue" ColumnName="usePreviousValue" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeMetricId" ColumnName="nodeMetricId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbNodeMetricValue_Day">
+            <EntityTypeMapping TypeName="igenmsModel.tbNodeMetricValue_Day">
+              <MappingFragment StoreEntitySet="tbNodeMetricValue_Day">
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="last" ColumnName="last" />
+                <ScalarProperty Name="first" ColumnName="first" />
+                <ScalarProperty Name="maxCount" ColumnName="maxCount" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="C95pct" ColumnName="95pct" />
+                <ScalarProperty Name="stdDev" ColumnName="stdDev" />
+                <ScalarProperty Name="mode" ColumnName="mode" />
+                <ScalarProperty Name="median" ColumnName="median" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="epochTimestamp" ColumnName="epochTimestamp" />
+                <ScalarProperty Name="valueType" ColumnName="valueType" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeMetricId" ColumnName="nodeMetricId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbNodeMetricValue_Hour">
+            <EntityTypeMapping TypeName="igenmsModel.tbNodeMetricValue_Hour">
+              <MappingFragment StoreEntitySet="tbNodeMetricValue_Hour">
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="last" ColumnName="last" />
+                <ScalarProperty Name="first" ColumnName="first" />
+                <ScalarProperty Name="maxCount" ColumnName="maxCount" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="C95pct" ColumnName="95pct" />
+                <ScalarProperty Name="stdDev" ColumnName="stdDev" />
+                <ScalarProperty Name="mode" ColumnName="mode" />
+                <ScalarProperty Name="median" ColumnName="median" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="epochTimestamp" ColumnName="epochTimestamp" />
+                <ScalarProperty Name="valueType" ColumnName="valueType" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeMetricId" ColumnName="nodeMetricId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbNodeStatus">
+            <EntityTypeMapping TypeName="igenmsModel.tbNodeStatu">
+              <MappingFragment StoreEntitySet="tbNodeStatus">
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="originalStatus" ColumnName="originalStatus" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetAggregatedBases">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetAggregatedBase">
+              <MappingFragment StoreEntitySet="vwGetAggregatedBase">
+                <ScalarProperty Name="last" ColumnName="last" />
+                <ScalarProperty Name="first" ColumnName="first" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="average" ColumnName="average" />
+                <ScalarProperty Name="reportingtimestamp" ColumnName="reportingtimestamp" />
+                <ScalarProperty Name="nodeid" ColumnName="nodeid" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetAggregatedMedians">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetAggregatedMedian">
+              <MappingFragment StoreEntitySet="vwGetAggregatedMedian">
+                <ScalarProperty Name="median" ColumnName="median" />
+                <ScalarProperty Name="reportingtimestamp" ColumnName="reportingtimestamp" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetAggregatedPercentiles">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetAggregatedPercentile">
+              <MappingFragment StoreEntitySet="vwGetAggregatedPercentile">
+                <ScalarProperty Name="percentile" ColumnName="percentile" />
+                <ScalarProperty Name="reportingtimestamp" ColumnName="reportingtimestamp" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetAggregatedStdDevs">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetAggregatedStdDev">
+              <MappingFragment StoreEntitySet="vwGetAggregatedStdDev">
+                <ScalarProperty Name="stdDev" ColumnName="stdDev" />
+                <ScalarProperty Name="reportingtimestamp" ColumnName="reportingtimestamp" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetChildNodeStatus">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetChildNodeStatu">
+              <MappingFragment StoreEntitySet="vwGetChildNodeStatus">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetJobs">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetJob">
+              <MappingFragment StoreEntitySet="vwGetJobs">
+                <ScalarProperty Name="listOfJobs" ColumnName="listOfJobs" />
+                <ScalarProperty Name="exitCode" ColumnName="exitCode" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="isRecovery" ColumnName="isRecovery" />
+                <ScalarProperty Name="processed" ColumnName="processed" />
+                <ScalarProperty Name="createdDateTime" ColumnName="createdDateTime" />
+                <ScalarProperty Name="aggregationEndDateTime" ColumnName="aggregationEndDateTime" />
+                <ScalarProperty Name="aggregationStartDateTime" ColumnName="aggregationStartDateTime" />
+                <ScalarProperty Name="processId" ColumnName="processId" />
+                <ScalarProperty Name="startAfterDateTime" ColumnName="startAfterDateTime" />
+                <ScalarProperty Name="endDateTime" ColumnName="endDateTime" />
+                <ScalarProperty Name="startDateTime" ColumnName="startDateTime" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="IntervalId" ColumnName="IntervalId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="computerName" ColumnName="computerName" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwGetPreviousNodeStatusValues">
+            <EntityTypeMapping TypeName="igenmsModel.vwGetPreviousNodeStatusValue">
+              <MappingFragment StoreEntitySet="vwGetPreviousNodeStatusValue">
+                <ScalarProperty Name="defaultvalue" ColumnName="defaultvalue" />
+                <ScalarProperty Name="elapsedTime" ColumnName="elapsedTime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwNodes">
+            <EntityTypeMapping TypeName="igenmsModel.vwNode">
+              <MappingFragment StoreEntitySet="vwNode">
+                <ScalarProperty Name="deactivationDate" ColumnName="deactivationDate" />
+                <ScalarProperty Name="activationDate" ColumnName="activationDate" />
+                <ScalarProperty Name="processorName" ColumnName="processorName" />
+                <ScalarProperty Name="nodeData" ColumnName="nodeData" />
+                <ScalarProperty Name="nextPollDate" ColumnName="nextPollDate" />
+                <ScalarProperty Name="lastPollDate" ColumnName="lastPollDate" />
+                <ScalarProperty Name="pollPolicy" ColumnName="pollPolicy" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="pollingInterval" ColumnName="pollingInterval" />
+                <ScalarProperty Name="nodeTypeTemplateId" ColumnName="nodeTypeTemplateId" />
+                <ScalarProperty Name="useMetricTemplate" ColumnName="useMetricTemplate" />
+                <ScalarProperty Name="pollerId" ColumnName="pollerId" />
+                <ScalarProperty Name="sourceInfo" ColumnName="sourceInfo" />
+                <ScalarProperty Name="connectorCreds" ColumnName="connectorCreds" />
+                <ScalarProperty Name="connectorId" ColumnName="connectorId" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwNodeMetrics">
+            <EntityTypeMapping TypeName="igenmsModel.vwNodeMetric">
+              <MappingFragment StoreEntitySet="vwNodeMetric">
+                <ScalarProperty Name="nodeMetricData" ColumnName="nodeMetricData" />
+                <ScalarProperty Name="metricUnits" ColumnName="metricUnits" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="metricSourceInfo" ColumnName="metricSourceInfo" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="pollingInterval" ColumnName="pollingInterval" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="metricValue3Label" ColumnName="metricValue3Label" />
+                <ScalarProperty Name="metricValue2Label" ColumnName="metricValue2Label" />
+                <ScalarProperty Name="metricValue1Label" ColumnName="metricValue1Label" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sampleValue" ColumnName="sampleValue" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwNodeMetricValues">
+            <EntityTypeMapping TypeName="igenmsModel.vwNodeMetricValue">
+              <MappingFragment StoreEntitySet="vwNodeMetricValue">
+                <ScalarProperty Name="isbackFilled" ColumnName="isbackFilled" />
+                <ScalarProperty Name="backFillMetricValueID" ColumnName="backFillMetricValueID" />
+                <ScalarProperty Name="lastPolledTimestamp" ColumnName="lastPolledTimestamp" />
+                <ScalarProperty Name="epochTimestamp" ColumnName="epochTimestamp" />
+                <ScalarProperty Name="metricvalue3" ColumnName="metricvalue3" />
+                <ScalarProperty Name="metricvalue2" ColumnName="metricvalue2" />
+                <ScalarProperty Name="metricvalue1" ColumnName="metricvalue1" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="nodeMetricId" ColumnName="nodeMetricId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwNodeParents">
+            <EntityTypeMapping TypeName="igenmsModel.vwNodeParent">
+              <MappingFragment StoreEntitySet="vwNodeParent">
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="parentnodeId" ColumnName="parentnodeId" />
+                <ScalarProperty Name="nodeId" ColumnName="nodeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwNodeTypes">
+            <EntityTypeMapping TypeName="igenmsModel.vwNodeType">
+              <MappingFragment StoreEntitySet="vwNodeType">
+                <ScalarProperty Name="config" ColumnName="config" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwNodeTypeMetrics">
+            <EntityTypeMapping TypeName="igenmsModel.vwNodeTypeMetric">
+              <MappingFragment StoreEntitySet="vwNodeTypeMetric">
+                <ScalarProperty Name="preFillValueConfig" ColumnName="preFillValueConfig" />
+                <ScalarProperty Name="config" ColumnName="config" />
+                <ScalarProperty Name="displayName" ColumnName="displayName" />
+                <ScalarProperty Name="isCalculatedMetric" ColumnName="isCalculatedMetric" />
+                <ScalarProperty Name="rollUpAggregateConfig" ColumnName="rollUpAggregateConfig" />
+                <ScalarProperty Name="metricUnits" ColumnName="metricUnits" />
+                <ScalarProperty Name="metricSourceInfo" ColumnName="metricSourceInfo" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="pollingInterval" ColumnName="pollingInterval" />
+                <ScalarProperty Name="metricValue3Label" ColumnName="metricValue3Label" />
+                <ScalarProperty Name="metricValue2Label" ColumnName="metricValue2Label" />
+                <ScalarProperty Name="metricValue1Label" ColumnName="metricValue1Label" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sampleValue" ColumnName="sampleValue" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwRNodeTypeMetrics">
+            <EntityTypeMapping TypeName="igenmsModel.vwRNodeTypeMetric">
+              <MappingFragment StoreEntitySet="vwRNodeTypeMetric">
+                <ScalarProperty Name="usePreviousValue" ColumnName="usePreviousValue" />
+                <ScalarProperty Name="defaultValue" ColumnName="defaultValue" />
+                <ScalarProperty Name="dateUpdated" ColumnName="dateUpdated" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="metricValueType" ColumnName="metricValueType" />
+                <ScalarProperty Name="MetricKey_Description" ColumnName="MetricKey_Description" />
+                <ScalarProperty Name="metricKey" ColumnName="metricKey" />
+                <ScalarProperty Name="NodeType_Description" ColumnName="NodeType_Description" />
+                <ScalarProperty Name="nodeTypeId" ColumnName="nodeTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fnGetMetricKeys" FunctionName="igenmsModel.Store.fnGetMetricKeys" />
+          <FunctionImportMapping FunctionImportName="fnGetStats" FunctionName="igenmsModel.Store.fnGetStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="igenmsModel.fnGetStats_Result">
+                <ScalarProperty Name="AverageProcessingTime_HourlyJob" ColumnName="AverageProcessingTime_HourlyJob" />
+                <ScalarProperty Name="AverageProcessingTime_DailyJob" ColumnName="AverageProcessingTime_DailyJob" />
+                <ScalarProperty Name="CommandTimeout" ColumnName="CommandTimeout" />
+                <ScalarProperty Name="Job_StartTimeDelay" ColumnName="Job_StartTimeDelay" />
+                <ScalarProperty Name="Job_SuspendProcessingAfter" ColumnName="Job_SuspendProcessingAfter" />
+                <ScalarProperty Name="JobProcessingHasIssues" ColumnName="JobProcessingHasIssues" />
+                <ScalarProperty Name="JobProcessingIsSuspended" ColumnName="JobProcessingIsSuspended" />
+                <ScalarProperty Name="LastErrJobAggregationDateTime" ColumnName="LastErrJobAggregationDateTime" />
+                <ScalarProperty Name="LastErrJobElapsedtime" ColumnName="LastErrJobElapsedtime" />
+                <ScalarProperty Name="LastErrJobId" ColumnName="LastErrJobId" />
+                <ScalarProperty Name="LastErrJobInterval" ColumnName="LastErrJobInterval" />
+                <ScalarProperty Name="LastErrJobStartDateTime" ColumnName="LastErrJobStartDateTime" />
+                <ScalarProperty Name="LastErrJobEndDateTime" ColumnName="LastErrJobEndDateTime" />
+                <ScalarProperty Name="LastErrJobStatus" ColumnName="LastErrJobStatus" />
+                <ScalarProperty Name="LastJobAggregationDateTime" ColumnName="LastJobAggregationDateTime" />
+                <ScalarProperty Name="LastJobElapsedtime" ColumnName="LastJobElapsedtime" />
+                <ScalarProperty Name="LastJobId" ColumnName="LastJobId" />
+                <ScalarProperty Name="LastJobInterval" ColumnName="LastJobInterval" />
+                <ScalarProperty Name="LastJobStartDateTime" ColumnName="LastJobStartDateTime" />
+                <ScalarProperty Name="LastJobEndDateTime" ColumnName="LastJobEndDateTime" />
+                <ScalarProperty Name="LastHourlyJob_Scheduled_DateTime" ColumnName="LastHourlyJob_Scheduled_DateTime" />
+                <ScalarProperty Name="LastJobStatus" ColumnName="LastJobStatus" />
+                <ScalarProperty Name="NextJobAggregationDateTime" ColumnName="NextJobAggregationDateTime" />
+                <ScalarProperty Name="NextJobId" ColumnName="NextJobId" />
+                <ScalarProperty Name="NextJobInterval" ColumnName="NextJobInterval" />
+                <ScalarProperty Name="NextJobStartAfterDateTime" ColumnName="NextJobStartAfterDateTime" />
+                <ScalarProperty Name="NextJobStartDateTime" ColumnName="NextJobStartDateTime" />
+                <ScalarProperty Name="NextJobStatus" ColumnName="NextJobStatus" />
+                <ScalarProperty Name="NextJobWillStartInMinutes" ColumnName="NextJobWillStartInMinutes" />
+                <ScalarProperty Name="NumberOfDaysForStats" ColumnName="NumberOfDaysForStats" />
+                <ScalarProperty Name="NumberOfRefresh" ColumnName="NumberOfRefresh" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Refresh_Enabled" ColumnName="Refresh_Enabled" />
+                <ScalarProperty Name="Refresh_Interval" ColumnName="Refresh_Interval" />
+                <ScalarProperty Name="Retention_ActivityLog_NumberOfHours" ColumnName="Retention_ActivityLog_NumberOfHours" />
+                <ScalarProperty Name="SP_CommandTimeout" ColumnName="SP_CommandTimeout" />
+                <ScalarProperty Name="SuspendAfter" ColumnName="SuspendAfter" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="fnStringList2Table" FunctionName="igenmsModel.Store.fnStringList2Table" />
+          <FunctionImportMapping FunctionImportName="spCleanRefTables" FunctionName="igenmsModel.Store.spCleanRefTables" />
+          <FunctionImportMapping FunctionImportName="spCleanUpDaily" FunctionName="igenmsModel.Store.spCleanUpDaily" />
+          <FunctionImportMapping FunctionImportName="spCleanUpHourly" FunctionName="igenmsModel.Store.spCleanUpHourly" />
+          <FunctionImportMapping FunctionImportName="spMergeRefTables" FunctionName="igenmsModel.Store.spMergeRefTables" />
+          <FunctionImportMapping FunctionImportName="spPopulate5Minute" FunctionName="igenmsModel.Store.spPopulate5Minute" />
+          <FunctionImportMapping FunctionImportName="spPopulateDaily" FunctionName="igenmsModel.Store.spPopulateDaily" />
+          <FunctionImportMapping FunctionImportName="spPopulateHourly" FunctionName="igenmsModel.Store.spPopulateHourly" />
+          <FunctionImportMapping FunctionImportName="spPopulateNodeStatus" FunctionName="igenmsModel.Store.spPopulateNodeStatus" />
+          <FunctionImportMapping FunctionImportName="spPopulateStaging" FunctionName="igenmsModel.Store.spPopulateStaging" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

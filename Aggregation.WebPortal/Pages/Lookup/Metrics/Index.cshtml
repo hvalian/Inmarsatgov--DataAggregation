@@ -1,0 +1,66 @@
+﻿@page
+@model Website.Pages.Lookup.MetricDefultValue.IndexModel
+
+@{
+    string pageTitle = "Metrics (Node Stauts Only)";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    NodeTypeId
+                </th>
+                <th>
+                    NodeType
+                    <br />
+                    Description
+                </th>
+                <th>
+                    MetricKey
+                </th>
+                <th>
+                    MetricKey
+                    <br />
+                    Description
+                </th>
+                <th>
+                    DefaultValue
+                </th>
+                <th>
+                   UsePreviousValue
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MetricDefaultValues)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NodeTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NodeTypeDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MetricKey)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MetricKeyDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DefaultValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsePreviousValue)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

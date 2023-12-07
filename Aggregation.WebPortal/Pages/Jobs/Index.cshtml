@@ -1,0 +1,193 @@
+﻿@page
+@using Aggregation_DataModels.Enums;
+@model Website.Pages.Jobs.IndexModel
+@{
+    string pageTitle = "Jobs- Action";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <div>
+        <partial name="Components/_Popups" />
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Search panel</div>
+        <div class="panel-body">
+            <form method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+                <div class="p-3 border bg-light">
+                    <div class="row mx-md-n5 mt-4">
+                        <div class="col px-md-4">
+                            <div class="input-group date" data-provide="datepicker">
+                                <input id="stateDate" type="text" class="form-control" asp-for="StartDate" asp-format="{0:MM-dd-yyyy}" />
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="col px-md-4">
+                            <div class="col px-md-4 text-center">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button type="button" class="btn btn-secondary">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Job Id
+                </th>
+                <th>
+                    Computer Name
+                </th>
+                <th>
+                    Start<br />DateTime
+                </th>
+                <th>
+                    End<br />DateTime
+                </th>
+                <th>
+                    Agg. Start<br />DateTime
+                </th>
+                <th>
+                    Agg. End<br />DateTime
+                </th>
+                <th>
+                    Elapsed Time (Seconds)
+                </th>
+                <th>
+                    Interval
+                </th>
+                <th>
+                    JobType
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Count
+                </th>
+                <th>
+                    View
+                </th>
+                <th>
+                    Refresh
+                </th>
+                <th>
+                    Reset Clock
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Jobs != null)
+            {
+                @foreach (var item in Model.Jobs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ComputerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AggregationStartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AggregationEndDateTime)
+                        </td>
+                        <td>
+                            @{
+                                double? totalSeconds = item.EndDateTime.HasValue && item.StartDateTime.HasValue ? (int?)(item.EndDateTime.Value - item.StartDateTime.Value).TotalSeconds : null;
+                            }
+                            @totalSeconds
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Interval)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Priority)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @{
+                                int countOfJobs = (@item.ListOfJobs ?? "").Split(',').Select<string, int>(int.Parse).Count();
+                            }
+                            @countOfJobs
+                        </td>
+                        <td>
+                            <a asp-page="./Details" asp-route-id="@item.Id"><i class="bi bi-binoculars"></i></a>
+                        </td>
+                        <td>
+                            @if (Model.HasAccessToRefreshJob() && item.IntervalId == (int)Interval.Daily && item.StatusId == (int)Status.Completed)
+                            {
+                                <a asp-page-handler="UpdateRefresh" asp-route-id="@item.Id" asp-route-priority="1"
+                                   onclick="return confirm('Are you sure to want to refresh data from @(item.AggregationStartDateTime) to @(item.AggregationEndDateTime)  as High Priority?')">
+                                    <i class="glyphicon glyphicon-refresh"></i>High
+                                </a>
+                                <a asp-page-handler="UpdateRefresh" asp-route-id="@item.Id" asp-route-priority="3"
+                                   onclick="return confirm('Are you sure to want to refresh data from @(item.AggregationStartDateTime) to @(item.AggregationEndDateTime) as Low Priority?')">
+                                    <i class="glyphicon glyphicon-refresh"></i>Low
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.HasAccessToUpdateClock() && item.IntervalId == (int)Interval.Daily && item.StatusId == (int)Status.Completed)
+                            {
+                                <a asp-page-handler="UpdateClock" asp-route-id="@item.Id" onclick="return confirm('Are you sure to want to reset clock to @(item.AggregationEndDateTime)?')">
+                                    <i class="glyphicon glyphicon-step-backward"></i>
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.HasAccessToUpdateClock() && item.IntervalId == (int)Interval.Daily && item.StatusId == (int)Status.Completed)
+                            {
+                                <a class="dropdown-item" href="#underConstructionModal" data-bs-toggle="modal" data-bs-target="#underConstructionModal">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            }
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#SelectedDate').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            format: "dd/mm/yyyy",
+            language: "tr"
+        });
+    });
+</script>

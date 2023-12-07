@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0E59FF65-333E-4B49-A187-064535CAC068}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aggregation_DataModels</RootNamespace>
+    <AssemblyName>AggregationDataModels</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums\Activity.cs" />
+    <Compile Include="Enums\Aggregate_Type.cs" />
+    <Compile Include="Enums\Interval.cs" />
+    <Compile Include="Enums\Job_Type.cs" />
+    <Compile Include="Enums\Log_Type.cs" />
+    <Compile Include="Enums\Priority.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Models\AggregationJobDetails.cs" />
+    <Compile Include="Models\AggregationObject.cs" />
+    <Compile Include="Models\Aggregation_NodeMetric.cs" />
+    <Compile Include="Models\ConfigObject.cs" />
+    <Compile Include="Models\Logger.cs" />
+    <Compile Include="Models\RtbNode.cs" />
+    <Compile Include="Models\RtbNodeMetric.cs" />
+    <Compile Include="Models\RtbNodeParent.cs" />
+    <Compile Include="Models\RtbNodeType.cs" />
+    <Compile Include="Models\RtbNodeTypeMetric.cs" />
+    <Compile Include="Models\TbActivity.cs" />
+    <Compile Include="Models\TbActivityLogger.cs" />
+    <Compile Include="Models\TbConfiguration.cs" />
+    <Compile Include="Models\TbConfigurationByDate.cs" />
+    <Compile Include="Models\TbInterval.cs" />
+    <Compile Include="Models\TbJob.cs" />
+    <Compile Include="Models\TbJobType.cs" />
+    <Compile Include="Models\TbLogActivity.cs" />
+    <Compile Include="Models\TbLogError.cs" />
+    <Compile Include="Models\TbNodemetricvalue5minute.cs" />
+    <Compile Include="Models\TbNodeMetricValueDay.cs" />
+    <Compile Include="Models\TbNodeMetricValueHour.cs" />
+    <Compile Include="Models\TbNodeStatus.cs" />
+    <Compile Include="Models\TbNodeStatusConfig.cs" />
+    <Compile Include="Models\TbNodeStatusTemp.cs" />
+    <Compile Include="Models\TbObservation.cs" />
+    <Compile Include="Models\TbObservationsTemplate.cs" />
+    <Compile Include="Models\TbPriority.cs" />
+    <Compile Include="Models\TbRawDataDaily.cs" />
+    <Compile Include="Models\TbRawDatum.cs" />
+    <Compile Include="Models\TbStatus.cs" />
+    <Compile Include="Models\TbUser.cs" />
+    <Compile Include="Models\TbWebServer.cs" />
+    <Compile Include="Models\VwGetAggregatedBase.cs" />
+    <Compile Include="Models\VwGetAggregatedMedian.cs" />
+    <Compile Include="Models\VwGetAggregatedPercentile.cs" />
+    <Compile Include="Models\VwGetAggregatedStdDev.cs" />
+    <Compile Include="Models\VwGetChildNodeStatus.cs" />
+    <Compile Include="Models\VwGetDashbordDatum.cs" />
+    <Compile Include="Models\VwGetJob.cs" />
+    <Compile Include="Models\VwGetPreviousNodeStatusValue.cs" />
+    <Compile Include="Models\VwNode.cs" />
+    <Compile Include="Models\VwNodeMetric.cs" />
+    <Compile Include="Models\VwNodeMetricValue.cs" />
+    <Compile Include="Models\VwNodeParent.cs" />
+    <Compile Include="Models\VwNodeType.cs" />
+    <Compile Include="Models\VwNodeTypeMetric.cs" />
+    <Compile Include="Models\VwRNodeTypeMetric.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,229 @@
+﻿@page
+@model Aggregation.WebPortal.Pages.Jobs.Historical.DetailsModel
+@{
+    string pageTitle = "Job Details";
+    ViewData["Title"] = pageTitle;
+}
+
+<h1>@pageTitle</h1>
+
+<div>
+    <h4>Job Id: @Model.TbJob.Id</h4>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.ComputerName)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.ComputerName)
+        </dd>
+        <dt class="col-sm-1">
+            @Html.DisplayNameFor(model => model.TbJob.ExitCode)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.TbJob.ExitCode)
+        </dd>
+        <dt class="col-sm-1">
+            @Html.DisplayNameFor(model => model.TbJob.Processed)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.TbJob.Processed)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.CreatedBy)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.CreatedBy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.CreatedDateTime)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.CreatedDateTime)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.StartDateTime)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.StartDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.EndDateTime)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.EndDateTime)
+        </dd>
+
+        @if (@Model.TbJob.Status < 3)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TbJob.StartAfterDateTime)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.TbJob.StartAfterDateTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TbJob.ProcessId)
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.TbJob.ProcessId)
+            </dd>
+        }
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.AggregationStartDateTime)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.AggregationStartDateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.AggregationEndDateTime)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.AggregationEndDateTime)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.IsRecovery)
+        </dt>
+        <dd class="col-sm-4">
+            @Html.DisplayFor(model => model.TbJob.IsRecovery)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TbJob.ParentJobId)
+        </dt>
+        <dd class="col-sm-4">
+            @if (@Model.TbJob?.ParentJobId > 0)
+            {
+                <a asp-page="./Details" asp-route-id="@Model.TbJob?.ParentJobId">Click here to view parent job</a>
+            }
+        </dd>
+
+        <dt class="col-sm-1">
+            @Html.DisplayNameFor(model => model.TbJob.Interval)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.TbJob.IntervalNavigation.Description)
+        </dd>
+
+        <dt class="col-sm-1">
+            @Html.DisplayNameFor(model => model.TbJob.JobType)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.TbJob.JobTypeNavigation.Description)
+        </dd>
+
+        <dt class="col-sm-1">
+            @Html.DisplayNameFor(model => model.TbJob.Priority)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.TbJob.PriorityNavigation.Description)
+        </dd>
+
+        <dt class="col-sm-1">
+            @Html.DisplayNameFor(model => model.TbJob.Status)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.TbJob.StatusNavigation.Description)
+        </dd>
+    </dl>
+</div>
+
+<hr />
+
+@if (@Model.TbJob.TbLogActivities.Count() > 0)
+{
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading@(@Model.TbJob.Id)">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(@Model.TbJob.Id)" aria-expanded="true" aria-controls="collapse@(@Model.TbJob.Id)">
+                Activities Log
+            </button>
+        </h2>
+        <div id="collapse@(@Model.TbJob.Id)" class="accordion-collapse collapse show" aria-labelledby="heading@(@Model.TbJob.Id)" data-bs-parent="#accordionJobListings">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Step Name
+                                    </th>
+                                    <th>
+                                        Elapsed Time
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var subitem in @Model.TbJob.TbLogActivities)
+                                {
+                                    if (subitem.MethodName != "StartJob")
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => subitem.MethodName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => subitem.ElapsedTime)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+}
+
+@if (@Model.TbJob.TbLogErrors.Count() > 0)
+{
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading_E_@(@Model.TbJob.Id)">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_E_@(@Model.TbJob.Id)" aria-expanded="true" aria-controls="collapse_E_@(@Model.TbJob.Id)">
+                Error Logs
+            </button>
+        </h2>
+        <div id="collapse_E_@(@Model.TbJob.Id)" class="accordion-collapse collapse show" aria-labelledby="heading_E_@(@Model.TbJob.Id)" data-bs-parent="#accordionJobErrors">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table">
+                            <tbody>
+                                @foreach (var subitem in @Model.TbJob.TbLogErrors)
+                                {
+                                    if (subitem.MethodName != "StartJob")
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>Method Name:</strong>@Html.DisplayFor(modelItem => subitem.MethodName)
+                                                <br />
+                                                <strong>Exception Message:</strong>@Html.DisplayFor(modelItem => subitem.ExceptionMessage)
+                                                <br />
+                                                <strong>Stack Trace:</strong>@Html.DisplayFor(modelItem => subitem.StackTrace)
+                                                <br />
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+}
+
+<div>
+    <a asp-page="@Model.PreviousPage">Back to @Model.PreviousPageLabel</a>
+</div>

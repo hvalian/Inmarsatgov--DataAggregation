@@ -1,0 +1,140 @@
+﻿@page
+@model Aggregation.WebPortal.Pages.Jobs.Historical.IndexModel
+@{
+    string pageTitle = "Jobs- Historical";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <partial name="./Components/_JobSearch" />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Job Id
+                </th>
+                <th>
+                    Computer Name
+                </th>
+                <th>
+                    Start<br />DateTime
+                </th>
+                <th>
+                    End<br />DateTime
+                </th>
+                <th>
+                    start Afte<br />DateTime
+                </th>
+                <th>
+                    Agg. Start<br />DateTime
+                </th>
+                <th>
+                    Agg. End<br />DateTime
+                </th>
+                <th>
+                    Elapsed Time (Seconds)
+                </th>
+                <th>
+                    Parent<br />JobId
+                </th>
+                <th>
+                    Processed
+                </th>
+                <th>
+                    Is<br />Recovery
+                </th>
+                <th>
+                    Interval
+                </th>
+                <th>
+                    JobType
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Jobs != null)
+            {
+                @foreach (var item in Model.Jobs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ComputerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartAfterDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AggregationStartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AggregationEndDateTime)
+                        </td>
+                        <td>
+                            @{
+                                double? totalSeconds = item.EndDateTime.HasValue && item.StartDateTime.HasValue ? (int?)(item.EndDateTime.Value - item.StartDateTime.Value).TotalSeconds : null;
+                            }
+                            @totalSeconds
+                        </td>
+                        <td>
+                            @if (item.ParentJobId != null)
+                            {
+                                <a asp-page="./Details" asp-route-id="@item.ParentJobId">@item.ParentJobId</a>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Processed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsRecovery)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IntervalNavigation.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JobTypeNavigation.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriorityNavigation.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusNavigation.Description)
+                        </td>
+                        <td>
+                            <a asp-page="./Details" asp-route-id="@item.Id"><i class="bi bi-binoculars"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#SelectedDate').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            format: "dd/mm/yyyy",
+            language: "tr"
+        });
+    });
+</script>

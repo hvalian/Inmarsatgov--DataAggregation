@@ -1,0 +1,202 @@
+﻿@page
+@model IndexModel
+
+@{
+    string pageTitle = "Dashboard";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" align="center">
+            <h1>@pageTitle</h1>
+        </div>
+    </div>
+
+    @*    <div>
+    <partial name="Components/_Boxes" />
+    </div>*@
+</div>
+
+<section class="pt-1 pb-5">
+    <div class="container">
+        @if (Model.JobProcessingHasIssues)
+        {
+            <div class="row">
+                <div class="col-sm-12" align="center">
+                    <h2>
+                        <span style="color:red;">
+                            There is an issue with job processing.
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-sm-4 py-2">
+                <div class="card card-body h-100">
+                    <h3 class="card-title text-center">
+                        Info about Last Job
+                    </h3>
+                    <div class="card-text">
+                        <div>
+                            Aggregation Date Time: @Model.LastJobAggregationDateTime
+                        </div>
+                        <div>
+                            Job Id: @Model.LastJobId
+                        </div>
+                        <div>
+                            Start Date Time: @Model.LastJobStartDateTime
+                        </div>
+                        <div>
+                            End Date Time: @Model.LastJobEndDateTime
+                        </div>
+                        <div>
+                            Elapsed Time (Seconds): @Model.LastJobElapsedtime
+                        </div>
+                        <div>
+                            Interval: @Model.LastJobInterval
+                        </div>
+                        <div>
+                            Status: @Model.LastJobStatus
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 py-2">
+                <div class="card card-body h-100">
+                    <h3 class="card-title text-center">
+                        Info about  @(Model.NextJobStatus == "Created" ? "Next" : "Current") Job
+                    </h3>
+                    <div class="card-text">
+                        <div>
+                            Aggregation Date Time: @Model.NextJobAggregationDateTime
+                        </div>
+                        <div>
+                            Job Id: @Model.NextJobId
+                        </div>
+                        <div>
+                            Start Date Time: @Model.NextJobStartDateTime
+                        </div>
+                        <div>
+                            Will Start After: @Model.NextJobStartAfterDateTime
+                        </div>
+                        <div>
+                            Interval: @Model.NextJobInterval
+                        </div>
+                        <div>
+                            Status: @Model.NextJobStatus
+                        </div>
+                        @if (!Model.JobProcessingHasIssues && Model.NextJobWillStartInMinutes > 0)
+                        {
+                            <div>
+                                Next Job Will Start In Minutes: @Model.NextJobWillStartInMinutes
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 py-2">
+                <div class="card card-body h-100 text-white  @(Model.IsCriticalError() ? "bg-danger" : "bg-info")">
+                    <h3 class="card-title text-center">
+                        Info about Last Failed Job
+                    </h3>
+                    <div class="card-text">
+                        <div>
+                            Aggregation Date Time: @Model.LastErrJobAggregationDateTime
+                        </div>
+                        <div>
+                            Job Id: @Model.LastErrJobId
+                        </div>
+                        <div>
+                            Start Date Time: @Model.LastErrJobStartDateTime
+                        </div>
+                        <div>
+                            End Date Time: @Model.LastErrJobEndDateTime
+                        </div>
+                        <div>
+                            Elapsed Time (Seconds): @Model.LastErrJobElapsedtime
+                        </div>
+                        <div>
+                            Interval: @Model.LastErrJobInterval
+                        </div>
+                        <div>
+                            Status: @Model.LastErrJobStatus
+                        </div>
+                        <a asp-page="Index" asp-page-handler="DisplayJobDetail" asp-route-id="@Model.LastErrJobId" class="btn btn-outline-warning">Click here for more info</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 py-2">
+                <div class="card card-body h-100">
+                    <h3 class="card-title text-center">
+                        Average Processing Time
+                    </h3>
+                    <div class="card-text">
+                        <div>
+                            Hourly Job (Seconds): @Model.AverageProcessingTime_HourlyJob
+                        </div>
+                        <div>
+                            Daily Job (Seconds): @Model.AverageProcessingTime_DailyJob
+                        </div>
+                        @*<a href="#" class="btn btn-outline-secondary">Click here for more inf</a>*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 py-2">
+                <div class="card card-body h-100">
+                    <h3 class="card-title text-center">
+                        Current Configuration
+                    </h3>
+                    <div class="card-text">
+                        <div>
+                            Project Name: @Model.ProjectName
+                        </div>
+                        <div>
+                            Job Start Delay (Minutes): @Model.JobStartTimeDelay
+                        </div>
+                        <div>
+                            Refresh Enabled: @Model.RefreshEnabled
+                        </div>
+                        <div>
+                            Refresh  Interval (In Days): @Model.RefreshInterval
+                        </div>
+                        <div>
+                            Number Of Refresh: @Model.NumberOfRefresh
+                        </div>
+                        <div>
+                            Command Timeout(Seconds): @Model.CommandTimeout
+                        </div>
+                        <div>
+                            SP Command Timeout (Seconds): @Model.SpCommandTimeout
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 py-2">
+                <div class="card card-body h-100 text-white bg-primary">
+                    <h4 class="card-title text-center">
+                        Job Processing Is @(Model.JobProcessingIsSuspended ? "Disabled" : "Enabled").
+                    </h4>
+                    <div class="card-text text-center">
+                        @Model.GetDisableEnableConfirmationText()
+                        @if (Model.HasAccessToDisable())
+                        {
+                            <br />
+                            <a asp-page="Index" asp-page-handler="UpdateJobProcessingState" class="btn btn-outline-warning"
+                               onclick="return confirm('Are you sure to want to @(Model.JobProcessingIsSuspended ? "Enabled" : "Disabled") Aggregation process?')">
+                                @(Model.JobProcessingIsSuspended ? "Enabled" : "Disabled")
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

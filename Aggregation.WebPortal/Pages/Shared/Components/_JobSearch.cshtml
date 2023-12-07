@@ -1,0 +1,56 @@
+﻿@model Aggregation.WebPortal.Pages.Jobs.Historical.IndexModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">Search panel</div>
+    <div class="panel-body">
+        <form method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+            <div class="p-3 border bg-light">
+                <div class="row mx-md-n5 mt-4">
+                    <div class="col px-md-4">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input id="stateDate" type="text" class="form-control" asp-for="StartDate" asp-format="{0:MM-dd-yyyy}" />
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col px-md-4">
+                        <div class="input-group date" data-provide="datepicker">
+                            <input id="endDate" type="text" class="form-control" asp-for="EndDate" asp-format="{0:MM-dd-yyyy}" />
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="row mx-md-n5 mt-4">
+                    <div class="col px-md-4">
+                        <b>Select Interval: </b>
+                        @Html.DropDownList("SelectedInterval", @Model.Intervals)
+                    </div>
+                    <div class="col px-md-4">
+                        <b>Select Job Type: </b>
+                        @Html.DropDownList("SelectedJobType", @Model.JobTypes) 
+                    </div>
+                    <div class="col px-md-4">
+                        <b>Select Status: </b>
+                        @Html.DropDownList("SelectedStatus", @Model.Statuses) 
+                    </div>
+                </div>
+
+                <div class="row mx-md-n5 mt-4">
+                    <div class="col px-md-4">
+                    </div>
+                    <div class="col px-md-4 text-center">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button type="button" class="btn btn-secondary">Clear</button>
+                    </div>
+                    <div class="col px-md-4">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

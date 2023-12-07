@@ -1,0 +1,23 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Aggregation.App/bin
+/Aggregation.App/obj
+/Aggregation.App/obj/Debug/TempPE/Properties.Resources.Designer.cs.dll
+/Aggregation.DataAccess/bin
+/Aggregation.DataAccess/obj
+/Aggregation.Deployment/bin
+/Aggregation.Deployment/obj
+/Aggregation.Library/bin
+/Aggregation.Library/obj
+/Aggregation.Models/bin
+/Aggregation.Models/obj
+/Aggregation.Services/bin
+/Aggregation.Services/obj
+/Aggregation.WebPortal/bin
+/Aggregation.WebPortal/obj
+/Aggregation.WindowsService/bin
+/Aggregation.WindowsService/obj
+/packages
+/.vs

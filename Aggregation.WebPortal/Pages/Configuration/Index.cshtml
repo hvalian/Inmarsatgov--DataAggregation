@@ -1,0 +1,67 @@
+﻿@page
+@model Website.Pages.Configuration.IndexModel
+
+@{
+    @using Aggregation_Services;
+    @inject IUserService userService;
+
+    string pageTitle = "Configuration";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    will<br />take<br />effect<br />immediately
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TbConfiguration)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @if (item.Type == "bit")
+                        {
+                            @(item.Value == "1" ? "True" : "False")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Value)
+                        }
+                    </td>
+                    <td>
+                        @((bool)item.Immediate ? "Yes" : "No (Next Day)")
+                    </td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.Id"><i class="bi bi-binoculars"></i></a>
+                        @if (userService.HasAccessToConfiguration() && (bool)!item.ReadOnly)
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                        }
+                        @if (userService.HasAccessToConfiguration() && item.Key == "Job_SuspendProcessingAfter" && item.Value != "2099/12/31 23:59:59")
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.Id" asp-route-defaultValue="2099/12/31 23:59:59"><i class="bi bi-bootstrap-reboot"></i></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

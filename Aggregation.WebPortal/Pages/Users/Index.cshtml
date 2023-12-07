@@ -1,0 +1,85 @@
+﻿@page
+@model Website.Pages.Users.IndexModel
+
+@{
+    @using Aggregation_Services;
+    @inject IUserService userService;
+
+    string pageTitle = "Users";
+    ViewData["Title"] = pageTitle;
+}
+
+<h1>@pageTitle</h1>
+@if (userService.HasAdminAccess())
+{
+    <p>
+        <a asp-page="Create">Create New User</a>
+    </p>
+}
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User Id
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                Active
+            </th>
+            <th>
+                Administrator
+            </th>
+            <th>
+                Configuration
+            </th>
+            <th>
+                Job Queue
+            </th>
+            <th>
+                Refresh Job
+            </th>
+            <th>
+                Update Clock
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TbUser)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasAdminAccess)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasAccessToConfiguration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasAccessToQueue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasAccessToRefreshJob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasAccessToUpdateClock)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

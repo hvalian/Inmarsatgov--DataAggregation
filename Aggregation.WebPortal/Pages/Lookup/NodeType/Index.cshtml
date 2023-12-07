@@ -1,0 +1,44 @@
+﻿@page
+@model Website.Pages.Lookup.NodeType.IndexModel
+
+@{
+    string pageTitle = "NodeType";
+    ViewData["Title"] = pageTitle;
+}
+
+<div class="container">
+    <h1>@pageTitle</h1>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    NodeType
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Previous <br />Node Status<br />Max Gap<br />(Minutes)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.NodeTypes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NodeTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DefaultValue)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
